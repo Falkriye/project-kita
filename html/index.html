@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563EB">
+<meta name="description" content="ProjectKita - Solusi Cepat untuk Setiap Project">
+<title>ProjectKita — Solusi Cepat untuk Setiap Project</title>
+<link rel="manifest" href="#" id="manifest-link">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #DBEAFE;
+  --secondary: #60A5FA;
+  --accent: #EFF6FF;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --bg: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-sidebar: #0F172A;
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 32px rgba(37,99,235,.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --sidebar-w: 240px;
+  --topbar-h: 64px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--text-primary); background: var(--bg-secondary); min-height: 100vh; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+/* ===== AUTH PAGES ===== */
+#auth-root { display: flex; min-height: 100vh; }
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 60px 40px;
+  position: relative; overflow: hidden;
+}
+.auth-left::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.auth-brand { position: relative; text-align: center; }
+.auth-brand .brand-icon {
+  width: 72px; height: 72px; background: rgba(255,255,255,.15); border-radius: 20px;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+  backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+}
+.auth-brand .brand-icon i { font-size: 36px; color: white; }
+.auth-brand h1 { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+.auth-brand p { color: rgba(255,255,255,.75); margin-top: 8px; font-size: 15px; }
+.auth-stats { display: flex; gap: 32px; margin-top: 48px; position: relative; }
+.auth-stat { text-align: center; }
+.auth-stat .num { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: white; }
+.auth-stat .lbl { font-size: 12px; color: rgba(255,255,255,.65); margin-top: 2px; }
+.auth-divider { width: 1px; background: rgba(255,255,255,.2); }
+.auth-right {
+  width: 480px; display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 48px; background: white;
+}
+.auth-right h2 { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text-primary); }
+.auth-right p.subtitle { color: var(--text-secondary); margin-top: 6px; font-size: 14px; }
+.form-group { margin-top: 20px; }
+.form-label { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: block; }
+.form-control {
+  width: 100%; height: 46px; padding: 0 14px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
+  background: var(--bg-secondary); transition: border-color .2s, box-shadow .2s; outline: none;
+}
+.form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); background: white; }
+.form-control.is-invalid { border-color: var(--danger); }
+.invalid-feedback { font-size: 12px; color: var(--danger); margin-top: 4px; }
+.input-group { position: relative; }
+.input-group .form-control { padding-right: 42px; }
+.input-group .toggle-pw { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; }
+.btn-primary-full {
+  width: 100%; height: 46px; background: var(--primary); color: white;
+  border: none; border-radius: var(--radius-sm); font-family: var(--font-display);
+  font-size: 15px; font-weight: 600; cursor: pointer; transition: background .2s, transform .1s;
+  margin-top: 24px;
+}
+.btn-primary-full:hover { background: var(--primary-dark); }
+.btn-primary-full:active { transform: scale(.99); }
+.btn-google {
+  width: 100%; height: 46px; background: white; color: var(--text-primary);
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-display);
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color .2s, box-shadow .2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px;
+}
+.btn-google:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+.btn-google img { width: 20px; }
+.auth-divider-text { text-align: center; color: var(--text-muted); font-size: 13px; margin: 16px 0; position: relative; }
+.auth-divider-text::before, .auth-divider-text::after { content: ''; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--border); }
+.auth-divider-text::before { left: 0; }
+.auth-divider-text::after { right: 0; }
+.auth-switch { margin-top: 24px; text-align: center; font-size: 13px; color: var(--text-secondary); }
+.auth-switch a { color: var(--primary); font-weight: 600; text-decoration: none; }
+.auth-switch a:hover { text-decoration: underline; }
+.role-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+.role-card {
+  border: 2px solid var(--border); border-radius: var(--radius-md); padding: 16px 12px;
+  text-align: center; cursor: pointer; transition: all .2s; background: var(--bg-secondary);
+}
+.role-card.selected { border-color: var(--primary); background: var(--accent); }
+.role-card i { font-size: 28px; color: var(--text-muted); display: block; margin-bottom: 8px; }
+.role-card.selected i { color: var(--primary); }
+.role-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.role-card p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.remember-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+.checkbox-label input[type="checkbox"] { accent-color: var(--primary); }
+.forgot-link { font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 500; }
+.forgot-link:hover { text-decoration: underline; }
+
+/* ===== APP LAYOUT ===== */
+#app-root { display: none; }
+.app-layout { display: flex; min-height: 100vh; }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: var(--sidebar-w); background: var(--bg-sidebar); position: fixed;
+  top: 0; left: 0; height: 100vh; display: flex; flex-direction: column;
+  z-index: 100; transition: transform .3s;
+}
+.sidebar-brand { padding: 22px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.sidebar-brand .brand-icon { width: 36px; height: 36px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sidebar-brand .brand-icon i { font-size: 20px; color: white; }
+.sidebar-brand h2 { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: white; letter-spacing: -0.3px; }
+.sidebar-brand span { font-size: 10px; color: rgba(255,255,255,.4); display: block; margin-top: -2px; }
+
+.sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
+.nav-section-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,.3); letter-spacing: 1px; text-transform: uppercase; padding: 0 8px; margin: 16px 0 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; padding: 10px 10px; border-radius: var(--radius-sm);
+  color: rgba(255,255,255,.6); font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all .15s; margin-bottom: 2px; text-decoration: none; position: relative;
+}
+.nav-item i { font-size: 18px; width: 20px; flex-shrink: 0; }
+.nav-item:hover { background: rgba(255,255,255,.06); color: white; }
+.nav-item.active { background: var(--primary); color: white; }
+.nav-badge { margin-left: auto; background: var(--danger); color: white; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 99px; }
+
+.sidebar-user { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,.06); }
+.user-card { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-sm); background: rgba(255,255,255,.05); }
+.user-avatar-sm { width: 34px; height: 34px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 13px; font-weight: 700; color: white; flex-shrink: 0; }
+.user-info-sm { flex: 1; overflow: hidden; }
+.user-info-sm .name { font-size: 13px; font-weight: 600; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-info-sm .role { font-size: 11px; color: rgba(255,255,255,.4); }
+.btn-logout { background: none; border: none; color: rgba(255,255,255,.4); cursor: pointer; font-size: 16px; padding: 4px; }
+.btn-logout:hover { color: var(--danger); }
+
+/* ===== TOPBAR ===== */
+.main-area { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; }
+.topbar {
+  height: var(--topbar-h); background: white; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 28px; gap: 16px;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text-primary); flex: 1; }
+.search-bar {
+  display: flex; align-items: center; background: var(--bg-secondary); border: 1.5px solid var(--border);
+  border-radius: 99px; padding: 0 16px; gap: 8px; width: 300px; height: 38px; transition: border-color .2s;
+}
+.search-bar:focus-within { border-color: var(--primary); background: white; }
+.search-bar i { color: var(--text-muted); font-size: 15px; }
+.search-bar input { background: none; border: none; outline: none; font-size: 13px; color: var(--text-primary); flex: 1; }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.icon-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-secondary); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); font-size: 17px; transition: all .2s; position: relative; }
+.icon-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--accent); }
+.icon-btn .badge { position: absolute; top: -3px; right: -3px; background: var(--danger); color: white; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
+
+/* ===== PAGE CONTENT ===== */
+.page-content { flex: 1; padding: 28px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* ===== CARDS ===== */
+.card {
+  background: white; border-radius: var(--radius-lg); border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.card-body { padding: 24px; }
+.card-header { padding: 20px 24px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--text-primary); }
+
+/* ===== STATS GRID ===== */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: white; border-radius: var(--radius-lg); padding: 20px 24px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.stat-card .label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-card .value { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--text-primary); margin-top: 6px; letter-spacing: -0.5px; }
+.stat-card .change { font-size: 12px; margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+.stat-card .change.up { color: var(--success); }
+.stat-card .change.down { color: var(--danger); }
+.stat-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; }
+
+/* ===== HERO BANNER ===== */
+.hero-banner {
+  background: linear-gradient(135deg, #1E40AF 0%, #2563EB 60%, #60A5FA 100%);
+  border-radius: var(--radius-xl); padding: 36px 40px; margin-bottom: 24px;
+  display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden;
+}
+.hero-banner::before {
+  content: '';
+  position: absolute; right: -40px; top: -40px;
+  width: 240px; height: 240px; background: rgba(255,255,255,.06); border-radius: 50%;
+}
+.hero-banner::after {
+  content: '';
+  position: absolute; right: 80px; bottom: -60px;
+  width: 180px; height: 180px; background: rgba(255,255,255,.04); border-radius: 50%;
+}
+.hero-text h2 { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+.hero-text p { color: rgba(255,255,255,.75); font-size: 14px; margin-top: 8px; max-width: 420px; }
+.hero-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-white { background: white; color: var(--primary); border: none; border-radius: var(--radius-sm); padding: 10px 20px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.btn-white:hover { box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+.btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,.5); border-radius: var(--radius-sm); padding: 9px 20px; font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.btn-outline-white:hover { border-color: white; background: rgba(255,255,255,.1); }
+.hero-stats { display: flex; gap: 32px; position: relative; }
+.hero-stat { text-align: center; }
+.hero-stat .num { font-family: var(--font-display); font-size: 30px; font-weight: 800; color: white; }
+.hero-stat .lbl { font-size: 12px; color: rgba(255,255,255,.65); margin-top: 2px; }
+
+/* ===== SECTION HEADER ===== */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.section-header h3 { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--text-primary); }
+.btn-link { background: none; border: none; color: var(--primary); font-size: 13px; font-weight: 600; cursor: pointer; padding: 0; text-decoration: none; }
+.btn-link:hover { text-decoration: underline; }
+
+/* ===== PROJECT CARDS ===== */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.project-card {
+  background: white; border-radius: var(--radius-lg); border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm); overflow: hidden; cursor: pointer; transition: all .2s;
+}
+.project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--primary-light); }
+.project-card-header { padding: 20px 20px 0; display: flex; align-items: flex-start; justify-content: space-between; }
+.category-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+.badge-desain { background: #EDE9FE; color: #7C3AED; }
+.badge-video { background: #FEF3C7; color: #D97706; }
+.badge-konten { background: #D1FAE5; color: #059669; }
+.badge-ilustrasi { background: #FCE7F3; color: #DB2777; }
+.badge-penulisan { background: #DBEAFE; color: #2563EB; }
+.badge-lainnya { background: #F1F5F9; color: #475569; }
+.bookmark-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 18px; padding: 2px; }
+.bookmark-btn:hover, .bookmark-btn.active { color: var(--primary); }
+.project-card-body { padding: 12px 20px 20px; }
+.project-card-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; line-height: 1.4; }
+.project-card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.project-meta { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-light); }
+.meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); }
+.meta-item i { font-size: 13px; }
+.project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.budget-range { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--primary); }
+.status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+.status-open { background: #D1FAE5; color: #059669; }
+.status-progress { background: #DBEAFE; color: #2563EB; }
+.status-review { background: #FEF3C7; color: #D97706; }
+.status-done { background: #F1F5F9; color: #64748B; }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ===== TALENT CARDS ===== */
+.talents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.talent-card {
+  background: white; border-radius: var(--radius-lg); border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm); padding: 24px 20px; text-align: center; cursor: pointer; transition: all .2s;
+}
+.talent-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--primary-light); }
+.talent-avatar { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 800; color: white; }
+.talent-name { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.talent-role { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.talent-rating { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.star { color: #F59E0B; }
+.talent-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+.skill-tag { padding: 3px 10px; background: var(--accent); color: var(--primary); border-radius: 99px; font-size: 11px; font-weight: 600; }
+.btn-hire { width: 100%; margin-top: 16px; padding: 9px 0; background: var(--accent); color: var(--primary); border: 1.5px solid var(--primary-light); border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.btn-hire:hover { background: var(--primary); color: white; }
+.achievement-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 99px; font-size: 10px; font-weight: 600; margin-top: 8px; }
+.badge-top { background: #FEF3C7; color: #D97706; }
+.badge-fast { background: #D1FAE5; color: #059669; }
+.badge-trusted { background: #DBEAFE; color: #2563EB; }
+
+/* ===== CATEGORY CHIPS ===== */
+.category-list { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.cat-chip {
+  display: flex; align-items: center; gap: 8px; padding: 10px 18px;
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius-md);
+  cursor: pointer; transition: all .2s; font-size: 13px; font-weight: 500; color: var(--text-secondary);
+}
+.cat-chip i { font-size: 18px; }
+.cat-chip:hover, .cat-chip.active { border-color: var(--primary); color: var(--primary); background: var(--accent); }
+
+/* ===== FILTER BAR ===== */
+.filter-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-select {
+  height: 38px; padding: 0 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500; color: var(--text-secondary); background: white;
+  cursor: pointer; outline: none; transition: border-color .2s;
+}
+.filter-select:focus { border-color: var(--primary); }
+.filter-count { font-size: 13px; color: var(--text-muted); margin-left: auto; }
+
+/* ===== CHAT ===== */
+.chat-layout { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - var(--topbar-h) - 56px); border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; background: white; }
+.chat-list { border-right: 1px solid var(--border-light); display: flex; flex-direction: column; }
+.chat-list-header { padding: 16px 20px; border-bottom: 1px solid var(--border-light); }
+.chat-list-header h3 { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.chat-search { margin-top: 10px; display: flex; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 12px; gap: 8px; height: 34px; }
+.chat-search i { color: var(--text-muted); font-size: 13px; }
+.chat-search input { background: none; border: none; outline: none; font-size: 13px; flex: 1; }
+.chat-list-body { flex: 1; overflow-y: auto; }
+.chat-item { display: flex; align-items: center; gap: 12px; padding: 14px 20px; cursor: pointer; transition: background .15s; border-bottom: 1px solid var(--border-light); }
+.chat-item:hover { background: var(--bg-secondary); }
+.chat-item.active { background: var(--accent); }
+.chat-item-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 15px; font-weight: 700; color: white; flex-shrink: 0; }
+.chat-item-info { flex: 1; overflow: hidden; }
+.chat-item-name { font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-item-preview { font-size: 12px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-item-meta { text-align: right; flex-shrink: 0; }
+.chat-item-time { font-size: 11px; color: var(--text-muted); }
+.chat-item-badge { background: var(--primary); color: white; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 99px; margin-top: 4px; display: inline-block; }
+
+.chat-main { display: flex; flex-direction: column; }
+.chat-header { padding: 14px 20px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 12px; }
+.chat-header-info h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.chat-header-info p { font-size: 12px; color: var(--success); }
+.chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: var(--bg-secondary); }
+.msg { display: flex; gap: 10px; max-width: 70%; }
+.msg.sent { align-self: flex-end; flex-direction: row-reverse; }
+.msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
+.msg-bubble { padding: 10px 14px; border-radius: var(--radius-md); font-size: 13px; line-height: 1.5; }
+.msg.recv .msg-bubble { background: white; color: var(--text-primary); box-shadow: var(--shadow-sm); border-bottom-left-radius: 4px; }
+.msg.sent .msg-bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+.msg-time { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+.msg.sent .msg-time { text-align: right; }
+.chat-input-area { padding: 16px 20px; border-top: 1px solid var(--border-light); display: flex; align-items: center; gap: 12px; background: white; }
+.chat-input { flex: 1; height: 42px; padding: 0 16px; border: 1.5px solid var(--border); border-radius: 99px; font-size: 14px; outline: none; transition: border-color .2s; }
+.chat-input:focus { border-color: var(--primary); }
+.btn-send { width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: background .2s; }
+.btn-send:hover { background: var(--primary-dark); }
+.attach-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 20px; padding: 4px; }
+.attach-btn:hover { color: var(--primary); }
+
+/* ===== PROGRESS ===== */
+.progress-bar-wrap { background: var(--bg-secondary); border-radius: 99px; height: 6px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--primary); border-radius: 99px; transition: width .5s; }
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item { display: flex; gap: 16px; position: relative; }
+.timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+.timeline-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; z-index: 1; }
+.timeline-icon.done { background: var(--success); color: white; }
+.timeline-icon.current { background: var(--primary); color: white; }
+.timeline-icon.pending { background: var(--border); color: var(--text-muted); }
+.timeline-content { padding-bottom: 24px; }
+.timeline-content h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.timeline-content p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+/* ===== PROFILE PAGE ===== */
+.profile-banner { background: linear-gradient(135deg, #1E40AF, #2563EB); height: 160px; border-radius: var(--radius-xl) var(--radius-xl) 0 0; position: relative; }
+.profile-card-main { border: 1px solid var(--border-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 20px; }
+.profile-info-area { padding: 0 28px 28px; background: white; border-radius: 0 0 var(--radius-xl) var(--radius-xl); }
+.profile-avatar-lg { width: 96px; height: 96px; border-radius: 50%; border: 4px solid white; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 34px; font-weight: 800; color: white; margin-top: -48px; margin-bottom: 16px; }
+.profile-name { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--text-primary); }
+.profile-role-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: var(--accent); color: var(--primary); border-radius: 99px; font-size: 12px; font-weight: 600; margin-top: 6px; }
+.profile-stats { display: flex; gap: 32px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-light); }
+.pstat { }
+.pstat .val { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--text-primary); }
+.pstat .lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ===== BUTTONS ===== */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; border: none; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary { background: var(--bg-secondary); color: var(--text-secondary); border: 1.5px solid var(--border); }
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+.btn-success { background: var(--success); color: white; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-sm { padding: 6px 14px; font-size: 12px; }
+
+/* ===== POST PROJECT FORM ===== */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group-app { margin-bottom: 20px; }
+.form-label-app { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: block; }
+.form-control-app {
+  width: 100%; height: 46px; padding: 0 14px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
+  background: white; transition: border-color .2s; outline: none;
+}
+.form-control-app:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+textarea.form-control-app { height: auto; padding: 12px 14px; resize: vertical; }
+.upload-area {
+  border: 2px dashed var(--border); border-radius: var(--radius-md); padding: 32px;
+  text-align: center; cursor: pointer; transition: all .2s; background: var(--bg-secondary);
+}
+.upload-area:hover { border-color: var(--primary); background: var(--accent); }
+.upload-area i { font-size: 32px; color: var(--text-muted); }
+.upload-area p { font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
+
+/* ===== PAYMENT ===== */
+.payment-method { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all .2s; margin-bottom: 10px; }
+.payment-method:hover, .payment-method.selected { border-color: var(--primary); background: var(--accent); }
+.payment-method-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.payment-method-info { flex: 1; }
+.payment-method-info h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.payment-method-info p { font-size: 12px; color: var(--text-muted); }
+.payment-radio { width: 18px; height: 18px; accent-color: var(--primary); }
+
+/* ===== NOTIFICATIONS ===== */
+.notif-item { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border-light); }
+.notif-item:last-child { border-bottom: none; }
+.notif-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.notif-body h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.notif-body p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+.notif-body time { font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block; }
+.notif-unread { background: var(--accent); border-radius: var(--radius-md); padding: 2px; margin: -2px; }
+
+/* ===== MODAL ===== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: white; border-radius: var(--radius-xl); width: 580px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
+.modal-header { padding: 24px 28px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+.modal-header h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 22px; color: var(--text-muted); cursor: pointer; }
+.modal-close:hover { color: var(--text-primary); }
+.modal-body { padding: 28px; }
+.modal-footer { padding: 20px 28px; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 10px; }
+
+/* ===== TOAST ===== */
+.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 500; display: flex; flex-direction: column; gap: 10px; }
+.toast { background: var(--bg-sidebar); color: white; padding: 14px 18px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px; font-size: 13px; box-shadow: var(--shadow-lg); min-width: 260px; animation: slideIn .3s ease; }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.toast i { font-size: 18px; }
+.toast.success i { color: var(--success); }
+.toast.error i { color: var(--danger); }
+.toast.info i { color: var(--secondary); }
+
+/* ===== SPLASH ===== */
+#splash { position: fixed; inset: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; transition: opacity .4s; }
+#splash .logo { width: 80px; height: 80px; background: var(--primary); border-radius: 24px; display: flex; align-items: center; justify-content: center; }
+#splash .logo i { font-size: 40px; color: white; }
+#splash h1 { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--text-primary); margin-top: 20px; }
+#splash p { color: var(--text-muted); margin-top: 6px; }
+.splash-loader { width: 40px; height: 4px; background: var(--border); border-radius: 99px; margin-top: 32px; overflow: hidden; }
+.splash-loader-fill { height: 100%; background: var(--primary); border-radius: 99px; animation: load 1.5s ease forwards; }
+@keyframes load { from { width: 0 } to { width: 100% } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .talents-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .auth-left { display: none; }
+  .auth-right { width: 100%; padding: 40px 32px; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-area { margin-left: 0; }
+  .hero-stats { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .talents-grid { grid-template-columns: repeat(2, 1fr); }
+  .chat-layout { grid-template-columns: 1fr; }
+  .chat-list { display: none; }
+  .form-grid { grid-template-columns: 1fr; }
+  .profile-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .topbar { padding: 0 16px; }
+  .search-bar { display: none; }
+  .page-content { padding: 16px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .hero-banner { padding: 24px 20px; }
+  .hero-text h2 { font-size: 20px; }
+  .talents-grid { grid-template-columns: 1fr 1fr; }
+  .hero-actions { flex-direction: column; }
+}
+
+/* ===== MISC ===== */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.divider { border: none; border-top: 1px solid var(--border-light); margin: 20px 0; }
+.text-primary-color { color: var(--primary); }
+.fw-700 { font-weight: 700; }
+.fs-13 { font-size: 13px; }
+.text-muted { color: var(--text-muted); }
+.rating-stars { color: #F59E0B; font-size: 14px; }
+.empty-state { text-align: center; padding: 48px 24px; color: var(--text-muted); }
+.empty-state i { font-size: 48px; opacity: .3; }
+.empty-state h4 { font-family: var(--font-display); font-size: 16px; font-weight: 600; margin-top: 12px; color: var(--text-secondary); }
+.empty-state p { font-size: 13px; margin-top: 6px; }
+.hamburger { display: none; background: none; border: none; font-size: 22px; color: var(--text-secondary); cursor: pointer; }
+@media (max-width: 900px) { .hamburger { display: block; } }
+.mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 99; }
+.mobile-overlay.open { display: block; }
+table { width: 100%; border-collapse: collapse; }
+table th { padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--text-muted); text-align: left; border-bottom: 1px solid var(--border-light); }
+table td { padding: 14px 16px; font-size: 13px; color: var(--text-primary); border-bottom: 1px solid var(--border-light); }
+table tr:last-child td { border-bottom: none; }
+table tr:hover td { background: var(--bg-secondary); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="logo"><i class="bi bi-lightning-charge-fill"></i></div>
+  <h1>ProjectKita</h1>
+  <p>Solusi Cepat untuk Setiap Project</p>
+  <div class="splash-loader"><div class="splash-loader-fill"></div></div>
+</div>
+
+<!-- AUTH ROOT -->
+<div id="auth-root">
+
+  <!-- LOGIN PAGE -->
+  <div id="page-login" class="auth-left-right" style="display:flex;min-height:100vh;">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <div class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <h1>ProjectKita</h1>
+        <p>Solusi Cepat untuk Setiap Project</p>
+      </div>
+      <div class="auth-stats">
+        <div class="auth-stat"><div class="num">12K+</div><div class="lbl">Talent Aktif</div></div>
+        <div class="auth-divider"></div>
+        <div class="auth-stat"><div class="num">8K+</div><div class="lbl">Project Selesai</div></div>
+        <div class="auth-divider"></div>
+        <div class="auth-stat"><div class="num">4.9★</div><div class="lbl">Rating</div></div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <h2>Selamat Datang! 👋</h2>
+      <p class="subtitle">Masuk ke akun Anda untuk melanjutkan</p>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" id="login-email" placeholder="contoh@email.com">
+        <div class="invalid-feedback" id="login-email-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-group">
+          <input type="password" class="form-control" id="login-pw" placeholder="••••••••">
+          <button class="toggle-pw" onclick="togglePw('login-pw',this)"><i class="bi bi-eye-slash"></i></button>
+        </div>
+        <div class="invalid-feedback" id="login-pw-err"></div>
+      </div>
+      <div class="remember-row">
+        <label class="checkbox-label"><input type="checkbox" id="remember-me"> Ingat saya</label>
+        <a href="#" class="forgot-link">Lupa password?</a>
+      </div>
+      <button class="btn-primary-full" onclick="doLogin()">Masuk</button>
+      <div class="auth-divider-text">atau</div>
+      <button class="btn-google" onclick="loginDemo()">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Masuk dengan Google
+      </button>
+      <div class="auth-switch">Belum punya akun? <a href="#" onclick="showPage('page-register')">Daftar sekarang</a></div>
+    </div>
+  </div>
+
+  <!-- REGISTER PAGE -->
+  <div id="page-register" class="auth-left-right" style="display:none;min-height:100vh;">
+    <div class="auth-left">
+      <div class="auth-brand">
+        <div class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <h1>ProjectKita</h1>
+        <p>Bergabung dengan ribuan pengguna</p>
+      </div>
+      <div class="auth-stats">
+        <div class="auth-stat"><div class="num">Gratis</div><div class="lbl">Pendaftaran</div></div>
+        <div class="auth-divider"></div>
+        <div class="auth-stat"><div class="num">Aman</div><div class="lbl">Escrow</div></div>
+        <div class="auth-divider"></div>
+        <div class="auth-stat"><div class="num">Cepat</div><div class="lbl">Proses</div></div>
+      </div>
+    </div>
+    <div class="auth-right" style="overflow-y:auto;max-height:100vh;padding:40px 48px;">
+      <h2>Buat Akun Baru</h2>
+      <p class="subtitle">Isi data berikut untuk mendaftar</p>
+      <div class="form-group">
+        <label class="form-label">Nama Lengkap</label>
+        <input type="text" class="form-control" id="reg-name" placeholder="Nama Lengkap Anda">
+        <div class="invalid-feedback" id="reg-name-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" id="reg-email" placeholder="contoh@email.com">
+        <div class="invalid-feedback" id="reg-email-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-group">
+          <input type="password" class="form-control" id="reg-pw" placeholder="Min. 6 karakter">
+          <button class="toggle-pw" onclick="togglePw('reg-pw',this)"><i class="bi bi-eye-slash"></i></button>
+        </div>
+        <div class="invalid-feedback" id="reg-pw-err"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pilih Peran</label>
+        <div class="role-cards" id="role-cards">
+          <div class="role-card selected" onclick="selectRole('client',this)">
+            <i class="bi bi-person-badge"></i>
+            <h4>Client</h4>
+            <p>Ingin membuat project & mencari talent</p>
+          </div>
+          <div class="role-card" onclick="selectRole('talent',this)">
+            <i class="bi bi-stars"></i>
+            <h4>Talent</h4>
+            <p>Ingin mencari project & menawarkan jasa</p>
+          </div>
+        </div>
+        <div class="invalid-feedback" id="reg-role-err"></div>
+      </div>
+      <button class="btn-primary-full" onclick="doRegister()">Daftar Sekarang</button>
+      <div class="auth-switch">Sudah punya akun? <a href="#" onclick="showPage('page-login')">Masuk di sini</a></div>
+    </div>
+  </div>
+
+</div><!-- /auth-root -->
+
+<!-- APP ROOT -->
+<div id="app-root">
+  <div class="mobile-overlay" id="mobile-overlay" onclick="closeSidebar()"></div>
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <div>
+          <h2>ProjectKita</h2>
+          <span>Solusi Cepat untuk Setiap Project</span>
+        </div>
+      </div>
+      <div class="sidebar-nav">
+        <span class="nav-section-label">Menu Utama</span>
+        <a class="nav-item active" onclick="navigate('home')" href="#"><i class="bi bi-house-fill"></i> Home</a>
+        <a class="nav-item" onclick="navigate('explore')" href="#"><i class="bi bi-compass-fill"></i> Explore</a>
+        <a class="nav-item" onclick="navigate('chat')" href="#"><i class="bi bi-chat-dots-fill"></i> Chat <span class="nav-badge">3</span></a>
+        <a class="nav-item" onclick="navigate('tracking')" href="#"><i class="bi bi-activity"></i> Tracking Project</a>
+        <a class="nav-item" onclick="navigate('payment')" href="#"><i class="bi bi-wallet2"></i> Pembayaran</a>
+
+        <span class="nav-section-label" id="nav-client-label">Sebagai Client</span>
+        <a class="nav-item" id="nav-post" onclick="navigate('post-project')" href="#"><i class="bi bi-plus-circle-fill"></i> Buat Project</a>
+        <a class="nav-item" id="nav-myprojects" onclick="navigate('my-projects')" href="#"><i class="bi bi-briefcase-fill"></i> Project Saya</a>
+
+        <span class="nav-section-label" id="nav-talent-label" style="display:none">Sebagai Talent</span>
+        <a class="nav-item" id="nav-portfolio" onclick="navigate('portfolio')" href="#" style="display:none"><i class="bi bi-images"></i> Portofolio</a>
+        <a class="nav-item" id="nav-proposals" onclick="navigate('proposals')" href="#" style="display:none"><i class="bi bi-send-fill"></i> Lamaran Saya</a>
+
+        <span class="nav-section-label">Akun</span>
+        <a class="nav-item" onclick="navigate('notifications')" href="#"><i class="bi bi-bell-fill"></i> Notifikasi <span class="nav-badge">5</span></a>
+        <a class="nav-item" onclick="navigate('analytics')" href="#"><i class="bi bi-bar-chart-fill"></i> Analytics</a>
+        <a class="nav-item" onclick="navigate('profile')" href="#"><i class="bi bi-person-fill"></i> Profil Saya</a>
+      </div>
+      <div class="sidebar-user">
+        <div class="user-card">
+          <div class="user-avatar-sm" id="sidebar-avatar">AK</div>
+          <div class="user-info-sm">
+            <div class="name" id="sidebar-name">Loading...</div>
+            <div class="role" id="sidebar-role">Client</div>
+          </div>
+          <button class="btn-logout" onclick="doLogout()" title="Logout"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN AREA -->
+    <div class="main-area">
+      <div class="topbar">
+        <button class="hamburger" onclick="openSidebar()"><i class="bi bi-list"></i></button>
+        <div class="topbar-title" id="topbar-title">Home</div>
+        <div class="search-bar">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Cari project atau talent...">
+        </div>
+        <div class="topbar-actions">
+          <div class="icon-btn" onclick="navigate('notifications')" title="Notifikasi">
+            <i class="bi bi-bell"></i>
+            <div class="badge">5</div>
+          </div>
+          <div class="icon-btn" onclick="navigate('profile')" title="Profil">
+            <i class="bi bi-person-circle"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+
+        <!-- HOME PAGE -->
+        <div class="page active" id="page-home">
+          <div class="hero-banner">
+            <div class="hero-text">
+              <h2 id="hero-greeting">Selamat Datang! 👋</h2>
+              <p>Temukan talent terbaik atau project yang sesuai dengan keahlianmu. Mulai berkolaborasi sekarang!</p>
+              <div class="hero-actions">
+                <button class="btn-white" onclick="navigate('explore')"><i class="bi bi-compass" style="margin-right:6px"></i>Jelajahi Project</button>
+                <button class="btn-outline-white" onclick="navigate('post-project')"><i class="bi bi-plus-lg" style="margin-right:6px"></i>Buat Project</button>
+              </div>
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat"><div class="num" data-target="12487">0</div><div class="lbl">Talent Aktif</div></div>
+              <div style="width:1px;background:rgba(255,255,255,.2)"></div>
+              <div class="hero-stat"><div class="num" data-target="8293">0</div><div class="lbl">Project Selesai</div></div>
+              <div style="width:1px;background:rgba(255,255,255,.2)"></div>
+              <div class="hero-stat"><div class="num" data-target="49">0</div><div class="lbl">Rating Rata-rata</div></div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#EFF6FF;color:#2563EB"><i class="bi bi-briefcase-fill"></i></div>
+              <div class="label">Project Aktif</div>
+              <div class="value">4</div>
+              <div class="change up"><i class="bi bi-arrow-up"></i> +2 minggu ini</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#D1FAE5;color:#10B981"><i class="bi bi-check-circle-fill"></i></div>
+              <div class="label">Project Selesai</div>
+              <div class="value">12</div>
+              <div class="change up"><i class="bi bi-arrow-up"></i> +1 bulan ini</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="bi bi-chat-dots-fill"></i></div>
+              <div class="label">Pesan Masuk</div>
+              <div class="value">8</div>
+              <div class="change up"><i class="bi bi-arrow-up"></i> +3 hari ini</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#FCE7F3;color:#DB2777"><i class="bi bi-star-fill"></i></div>
+              <div class="label">Rating Saya</div>
+              <div class="value">4.9</div>
+              <div class="change up"><i class="bi bi-arrow-up"></i> Top 5%</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <!-- Recent Projects -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Project Terbaru</span>
+                <button class="btn-link" onclick="navigate('explore')">Lihat Semua →</button>
+              </div>
+              <div class="card-body" style="padding:0">
+                <table>
+                  <thead><tr><th>Project</th><th>Budget</th><th>Status</th></tr></thead>
+                  <tbody id="home-project-table"></tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Rekomendasi Talent -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Rekomendasi Talent</span>
+                <button class="btn-link" onclick="navigate('explore')">Lihat Semua →</button>
+              </div>
+              <div class="card-body" style="padding:12px">
+                <div id="home-talents"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPLORE PAGE -->
+        <div class="page" id="page-explore">
+          <div class="category-list" id="explore-cats">
+            <div class="cat-chip active" onclick="filterCat('semua',this)"><i class="bi bi-grid-fill"></i> Semua</div>
+            <div class="cat-chip" onclick="filterCat('desain',this)"><i class="bi bi-palette-fill"></i> Desain Grafis</div>
+            <div class="cat-chip" onclick="filterCat('video',this)"><i class="bi bi-camera-video-fill"></i> Video Editing</div>
+            <div class="cat-chip" onclick="filterCat('konten',this)"><i class="bi bi-file-post-fill"></i> Content Creator</div>
+            <div class="cat-chip" onclick="filterCat('ilustrasi',this)"><i class="bi bi-brush-fill"></i> Ilustrasi</div>
+            <div class="cat-chip" onclick="filterCat('penulisan',this)"><i class="bi bi-pencil-fill"></i> Penulisan</div>
+          </div>
+          <div class="filter-bar">
+            <select class="filter-select" id="filter-budget" onchange="applyFilters()">
+              <option value="">Semua Budget</option>
+              <option value="low">Di bawah Rp500K</option>
+              <option value="mid">Rp500K – Rp2Jt</option>
+              <option value="high">Di atas Rp2Jt</option>
+            </select>
+            <select class="filter-select" id="filter-deadline" onchange="applyFilters()">
+              <option value="">Semua Deadline</option>
+              <option value="1">1-3 Hari</option>
+              <option value="7">1 Minggu</option>
+              <option value="30">1 Bulan</option>
+            </select>
+            <select class="filter-select" id="filter-rating" onchange="applyFilters()">
+              <option value="">Semua Rating</option>
+              <option value="4">Rating 4+</option>
+              <option value="4.5">Rating 4.5+</option>
+            </select>
+            <span class="filter-count" id="filter-count">Menampilkan 8 project</span>
+          </div>
+          <div class="projects-grid" id="projects-grid"></div>
+        </div>
+
+        <!-- CHAT PAGE -->
+        <div class="page" id="page-chat">
+          <div class="chat-layout">
+            <div class="chat-list">
+              <div class="chat-list-header">
+                <h3>Pesan</h3>
+                <div class="chat-search"><i class="bi bi-search"></i><input type="text" placeholder="Cari percakapan..."></div>
+              </div>
+              <div class="chat-list-body" id="chat-list-body"></div>
+            </div>
+            <div class="chat-main">
+              <div class="chat-header">
+                <div class="chat-item-avatar" id="chat-active-avatar" style="background:#2563EB;width:40px;height:40px">FK</div>
+                <div class="chat-header-info">
+                  <h4 id="chat-active-name">Fahmi Design</h4>
+                  <p id="chat-active-status">● Online</p>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px">
+                  <div class="icon-btn"><i class="bi bi-telephone"></i></div>
+                  <div class="icon-btn"><i class="bi bi-three-dots"></i></div>
+                </div>
+              </div>
+              <div class="chat-messages" id="chat-messages"></div>
+              <div class="chat-input-area">
+                <button class="attach-btn"><i class="bi bi-paperclip"></i></button>
+                <input class="chat-input" id="chat-input" type="text" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter')sendMessage()">
+                <button class="btn-send" onclick="sendMessage()"><i class="bi bi-send-fill"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRACKING PAGE -->
+        <div class="page" id="page-tracking">
+          <div class="two-col">
+            <div>
+              <div id="tracking-list"></div>
+            </div>
+            <div class="card" id="tracking-detail" style="display:none">
+              <div class="card-header"><span class="card-title">Progress Project</span></div>
+              <div class="card-body" id="tracking-detail-body"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT PAGE -->
+        <div class="page" id="page-payment">
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Pembayaran Project</span></div>
+              <div class="card-body">
+                <div id="payment-project-info" style="background:var(--bg-secondary);border-radius:var(--radius-md);padding:16px;margin-bottom:20px">
+                  <div style="font-size:13px;font-weight:600;color:var(--text-primary)">Desain Logo untuk Brand Minuman Kekinian</div>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Talent: Fahmi Design</div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span>Total Project</span><span class="fw-700">Rp500.000</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;color:var(--text-muted)"><span>Service Fee (5%)</span><span>Rp25.000</span></div>
+                <div class="divider"></div>
+                <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:20px"><span>Total Pembayaran</span><span class="text-primary-color">Rp525.000</span></div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:12px">Metode Pembayaran</div>
+                <div class="payment-method selected" onclick="selectPayment(this)">
+                  <div class="payment-method-icon" style="background:#EFF6FF;color:#2563EB"><i class="bi bi-bank2"></i></div>
+                  <div class="payment-method-info"><h4>Transfer Bank</h4><p>BCA, Mandiri, BNI, BRI</p></div>
+                  <input type="radio" class="payment-radio" name="payment" checked>
+                </div>
+                <div class="payment-method" onclick="selectPayment(this)">
+                  <div class="payment-method-icon" style="background:#EDE9FE;color:#7C3AED"><i class="bi bi-phone-fill"></i></div>
+                  <div class="payment-method-info"><h4>OVO</h4><p>Bayar dengan saldo OVO</p></div>
+                  <input type="radio" class="payment-radio" name="payment">
+                </div>
+                <div class="payment-method" onclick="selectPayment(this)">
+                  <div class="payment-method-icon" style="background:#D1FAE5;color:#059669"><i class="bi bi-credit-card-2-front-fill"></i></div>
+                  <div class="payment-method-info"><h4>GoPay</h4><p>Bayar dengan saldo GoPay</p></div>
+                  <input type="radio" class="payment-radio" name="payment">
+                </div>
+                <div class="payment-method" onclick="selectPayment(this)">
+                  <div class="payment-method-icon" style="background:#FEE2E2;color:#EF4444"><i class="bi bi-bag-heart-fill"></i></div>
+                  <div class="payment-method-info"><h4>ShopeePay</h4><p>Bayar dengan ShopeePay</p></div>
+                  <input type="radio" class="payment-radio" name="payment">
+                </div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px;height:46px" onclick="processPayment()">Bayar Sekarang</button>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="margin-bottom:16px">
+                <div class="card-header"><span class="card-title">Sistem Escrow</span></div>
+                <div class="card-body">
+                  <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:16px">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#DBEAFE;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-shield-check-fill" style="color:#2563EB"></i></div>
+                    <div><div style="font-size:14px;font-weight:600">Dana Aman Tersimpan</div><div style="font-size:13px;color:var(--text-secondary);margin-top:3px">Dana Anda ditahan di rekening escrow ProjectKita hingga project selesai.</div></div>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:16px">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#D1FAE5;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-check-circle-fill" style="color:#10B981"></i></div>
+                    <div><div style="font-size:14px;font-weight:600">Talent Dibayar Setelah Selesai</div><div style="font-size:13px;color:var(--text-secondary);margin-top:3px">Dana diteruskan ke talent hanya setelah Anda menyetujui hasil pekerjaan.</div></div>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:14px">
+                    <div style="width:36px;height:36px;border-radius:50%;background:#FEF3C7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-arrow-counterclockwise" style="color:#D97706"></i></div>
+                    <div><div style="font-size:14px;font-weight:600">Refund Jika Bermasalah</div><div style="font-size:13px;color:var(--text-secondary);margin-top:3px">Dana dikembalikan jika terjadi dispute yang tidak dapat diselesaikan.</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><span class="card-title">Riwayat Transaksi</span></div>
+                <div class="card-body" style="padding:0"><table>
+                  <thead><tr><th>Project</th><th>Jumlah</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td>Desain Logo Brand</td><td>Rp500K</td><td><span class="status-badge status-done">Selesai</span></td></tr>
+                    <tr><td>Edit Video YouTube</td><td>Rp750K</td><td><span class="status-badge status-progress">Diproses</span></td></tr>
+                    <tr><td>Konten Instagram</td><td>Rp400K</td><td><span class="status-badge status-done">Selesai</span></td></tr>
+                  </tbody>
+                </table></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POST PROJECT PAGE -->
+        <div class="page" id="page-post-project">
+          <div class="card" style="max-width:800px;margin:0 auto">
+            <div class="card-header"><span class="card-title">Buat Project Baru</span></div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div class="form-group-app" style="grid-column:1/-1">
+                  <label class="form-label-app">Nama Project *</label>
+                  <input type="text" class="form-control-app" id="pp-name" placeholder="Contoh: Desain Poster Event Kampus">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Kategori *</label>
+                  <select class="form-control-app" id="pp-cat">
+                    <option value="">Pilih kategori</option>
+                    <option value="desain">Desain Grafis</option>
+                    <option value="video">Video Editing</option>
+                    <option value="konten">Content Creator</option>
+                    <option value="ilustrasi">Ilustrasi</option>
+                    <option value="penulisan">Penulisan</option>
+                    <option value="lainnya">Lainnya</option>
+                  </select>
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Deadline *</label>
+                  <input type="date" class="form-control-app" id="pp-deadline">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Budget Minimum (Rp)</label>
+                  <input type="number" class="form-control-app" id="pp-budget-min" placeholder="250000">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Budget Maksimum (Rp)</label>
+                  <input type="number" class="form-control-app" id="pp-budget-max" placeholder="600000">
+                </div>
+                <div class="form-group-app" style="grid-column:1/-1">
+                  <label class="form-label-app">Deskripsi Project *</label>
+                  <textarea class="form-control-app" id="pp-desc" rows="4" placeholder="Jelaskan detail project yang Anda butuhkan, termasuk referensi, gaya, dan target audiens..."></textarea>
+                </div>
+                <div class="form-group-app" style="grid-column:1/-1">
+                  <label class="form-label-app">Skill yang Dibutuhkan</label>
+                  <input type="text" class="form-control-app" id="pp-skills" placeholder="Contoh: Adobe Photoshop, Figma, After Effects (pisahkan dengan koma)">
+                </div>
+              </div>
+              <div class="upload-area" onclick="showToast('Upload fitur coming soon!','info')">
+                <i class="bi bi-cloud-upload-fill"></i>
+                <p>Upload File Referensi (Opsional)</p>
+                <p style="font-size:12px;margin-top:4px">PDF, JPG, PNG — Maks. 10MB</p>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:24px">
+                <button class="btn btn-secondary" onclick="navigate('explore')">Batal</button>
+                <button class="btn btn-primary" onclick="publishProject()"><i class="bi bi-send-fill"></i> Publish Project</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MY PROJECTS PAGE -->
+        <div class="page" id="page-my-projects">
+          <div class="section-header">
+            <h3>Project Saya</h3>
+            <button class="btn btn-primary btn-sm" onclick="navigate('post-project')"><i class="bi bi-plus-lg"></i> Buat Project</button>
+          </div>
+          <div class="projects-grid" id="my-projects-grid"></div>
+        </div>
+
+        <!-- PORTFOLIO (Talent) -->
+        <div class="page" id="page-portfolio">
+          <div class="section-header">
+            <h3>Portofolio Saya</h3>
+            <button class="btn btn-primary btn-sm" onclick="showToast('Upload portofolio coming soon!','info')"><i class="bi bi-plus-lg"></i> Tambah Karya</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px" id="portfolio-grid"></div>
+        </div>
+
+        <!-- PROPOSALS (Talent) -->
+        <div class="page" id="page-proposals">
+          <div class="section-header"><h3>Lamaran Project Saya</h3></div>
+          <div id="proposals-list"></div>
+        </div>
+
+        <!-- NOTIFICATIONS PAGE -->
+        <div class="page" id="page-notifications">
+          <div class="card" style="max-width:700px;margin:0 auto">
+            <div class="card-header">
+              <span class="card-title">Notifikasi</span>
+              <button class="btn-link">Tandai semua dibaca</button>
+            </div>
+            <div class="card-body" id="notif-body"></div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS PAGE -->
+        <div class="page" id="page-analytics">
+          <div class="stats-grid" id="analytics-stats"></div>
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Project per Kategori</span></div>
+              <div class="card-body" id="analytics-cat-chart" style="padding:20px 0"></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Achievement</span></div>
+              <div class="card-body" id="analytics-achievements"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROFILE PAGE -->
+        <div class="page" id="page-profile">
+          <div class="profile-card-main">
+            <div class="profile-banner"></div>
+            <div class="profile-info-area">
+              <div class="profile-avatar-lg" id="profile-avatar-lg" style="background:#2563EB">AK</div>
+              <div class="profile-name" id="profile-full-name">Nama User</div>
+              <div class="profile-role-tag" id="profile-role-tag"><i class="bi bi-person-badge"></i> Client</div>
+              <div class="profile-stats">
+                <div class="pstat"><div class="val">12</div><div class="lbl">Project Selesai</div></div>
+                <div class="pstat"><div class="val">4.9★</div><div class="lbl">Rating</div></div>
+                <div class="pstat"><div class="val">98%</div><div class="lbl">Response Rate</div></div>
+                <div class="pstat"><div class="val">Mei 2024</div><div class="lbl">Bergabung</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-grid">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Informasi Akun</span></div>
+              <div class="card-body">
+                <div class="form-group-app">
+                  <label class="form-label-app">Nama Lengkap</label>
+                  <input type="text" class="form-control-app" id="prof-name" placeholder="Nama lengkap">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Email</label>
+                  <input type="email" class="form-control-app" id="prof-email" readonly style="opacity:.6;cursor:not-allowed">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Lokasi</label>
+                  <input type="text" class="form-control-app" id="prof-location" placeholder="Jakarta, Indonesia">
+                </div>
+                <div class="form-group-app">
+                  <label class="form-label-app">Bio / Tentang Saya</label>
+                  <textarea class="form-control-app" id="prof-bio" rows="3" placeholder="Ceritakan tentang diri Anda..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveProfile()"><i class="bi bi-check-lg"></i> Simpan Perubahan</button>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="margin-bottom:16px">
+                <div class="card-header"><span class="card-title">Data Profil</span></div>
+                <div class="card-body" id="profile-menu-items">
+                  <div style="display:flex;flex-direction:column;gap:2px">
+                    <div onclick="navigate('my-projects')" style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+                      <i class="bi bi-briefcase" style="color:var(--primary);width:20px"></i>
+                      <span style="font-size:14px;flex:1">Project Saya</span>
+                      <i class="bi bi-chevron-right" style="color:var(--text-muted)"></i>
+                    </div>
+                    <div onclick="navigate('payment')" style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+                      <i class="bi bi-wallet2" style="color:var(--primary);width:20px"></i>
+                      <span style="font-size:14px;flex:1">Riwayat Transaksi</span>
+                      <i class="bi bi-chevron-right" style="color:var(--text-muted)"></i>
+                    </div>
+                    <div onclick="navigate('notifications')" style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+                      <i class="bi bi-bell" style="color:var(--primary);width:20px"></i>
+                      <span style="font-size:14px;flex:1">Pengaturan Notifikasi</span>
+                      <i class="bi bi-chevron-right" style="color:var(--text-muted)"></i>
+                    </div>
+                    <div onclick="navigate('analytics')" style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+                      <i class="bi bi-bar-chart" style="color:var(--primary);width:20px"></i>
+                      <span style="font-size:14px;flex:1">Dashboard Analytics</span>
+                      <i class="bi bi-chevron-right" style="color:var(--text-muted)"></i>
+                    </div>
+                    <div onclick="doLogout()" style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s;color:var(--danger)" onmouseover="this.style.background='#FEF2F2'" onmouseout="this.style.background='transparent'">
+                      <i class="bi bi-box-arrow-right" style="width:20px"></i>
+                      <span style="font-size:14px;flex:1">Keluar</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+    </div><!-- /main-area -->
+  </div><!-- /app-layout -->
+</div><!-- /app-root -->
+
+<!-- MODAL: Project Detail -->
+<div class="modal-overlay" id="modal-project">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modal-project-title">Detail Project</h3>
+      <button class="modal-close" onclick="closeModal('modal-project')"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body" id="modal-project-body"></div>
+    <div class="modal-footer" id="modal-project-footer"></div>
+  </div>
+</div>
+
+<!-- MODAL: Talent Profile -->
+<div class="modal-overlay" id="modal-talent">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Profil Talent</h3>
+      <button class="modal-close" onclick="closeModal('modal-talent')"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body" id="modal-talent-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-talent')">Tutup</button>
+      <button class="btn btn-primary" onclick="hireTalent()"><i class="bi bi-lightning-charge-fill"></i> Chat & Hire</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Review -->
+<div class="modal-overlay" id="modal-review">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Beri Ulasan</h3>
+      <button class="modal-close" onclick="closeModal('modal-review')"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px">Bagaimana pengalaman Anda?</div>
+        <div style="font-size:36px;cursor:pointer" id="review-stars">
+          <span onclick="setRating(1)">☆</span><span onclick="setRating(2)">☆</span>
+          <span onclick="setRating(3)">☆</span><span onclick="setRating(4)">☆</span><span onclick="setRating(5)">☆</span>
+        </div>
+      </div>
+      <div class="form-group-app">
+        <label class="form-label-app">Tulis Ulasan</label>
+        <textarea class="form-control-app" id="review-text" rows="3" placeholder="Bagikan pengalaman Anda dengan talent ini..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-review')">Batal</button>
+      <button class="btn btn-primary" onclick="submitReview()"><i class="bi bi-send-fill"></i> Kirim Ulasan</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ========== DATA ==========
+const USERS_KEY = 'pk_users';
+const SESSION_KEY = 'pk_session';
+let currentUser = null;
+let selectedRole = 'client';
+let currentRating = 0;
+let activeChatId = 0;
+let activeFilterCat = 'semua';
+
+const sampleProjects = [
+  { id:1, title:'Desain Logo untuk Brand Minuman Kekinian', cat:'desain', desc:'Saya membutuhkan desain logo untuk brand minuman kekinian. Logo harus modern, minimalis, dan mudah diingat. Tersedia dalam format vector dan PNG.', budgetMin:300000, budgetMax:600000, deadline:'2025-06-20', skills:['Desain Logo','Branding','Adobe Illustrator'], status:'open', rating:4.8, client:'Budi Santoso' },
+  { id:2, title:'Edit Video YouTube 10 Menit', cat:'video', desc:'Butuh video editor untuk channel YouTube. Video durasi 10 menit, perlu color grading, motion graphics, dan subtitel bahasa Indonesia.', budgetMin:400000, budgetMax:700000, deadline:'2025-06-25', skills:['Premiere Pro','After Effects','Color Grading'], status:'open', rating:4.9, client:'Cindy Studio' },
+  { id:3, title:'Konten Instagram 1 Bulan', cat:'konten', desc:'Dibutuhkan content creator untuk mengelola konten Instagram UMKM kuliner. 20 post per bulan, termasuk caption dan hashtag.', budgetMin:600000, budgetMax:1000000, deadline:'2025-07-01', skills:['Content Writing','Canva','Social Media'], status:'open', rating:4.7, client:'Raka Wijaya' },
+  { id:4, title:'Ilustrasi Karakter Anime Chibi', cat:'ilustrasi', desc:'Mencari ilustrator untuk membuat karakter anime chibi custom. Akan digunakan sebagai mascot brand. Gaya kawaii dengan warna cerah.', budgetMin:250000, budgetMax:500000, deadline:'2025-06-18', skills:['Digital Art','Procreate','Character Design'], status:'open', rating:4.8, client:'Dinda Putri' },
+  { id:5, title:'Artikel SEO untuk Website Properti', cat:'penulisan', desc:'Butuh penulis konten SEO untuk website properti. 5 artikel per minggu, masing-masing 1000-1500 kata, dengan keyword yang disediakan.', budgetMin:500000, budgetMax:800000, deadline:'2025-06-30', skills:['SEO Writing','Content Research','WordPress'], status:'progress', rating:4.6, client:'Tim Marketing ABC' },
+  { id:6, title:'Desain UI Mobile App E-Commerce', cat:'desain', desc:'Dibutuhkan UI/UX designer untuk desain aplikasi mobile e-commerce. Meliputi 15-20 screen, termasuk komponen design system.', budgetMin:1500000, budgetMax:3000000, deadline:'2025-07-15', skills:['Figma','UI/UX','Mobile Design'], status:'open', rating:4.9, client:'StartupXYZ' },
+  { id:7, title:'Copywriting Iklan Facebook & Instagram', cat:'penulisan', desc:'Butuh copywriter berpengalaman untuk iklan digital. 10 variasi copy untuk A/B testing, fokus pada konversi dan engagement.', budgetMin:400000, budgetMax:600000, deadline:'2025-06-22', skills:['Copywriting','Digital Marketing','Facebook Ads'], status:'open', rating:4.5, client:'Brand Fashion' },
+  { id:8, title:'Animasi Motion Graphics Intro Video', cat:'video', desc:'Dibutuhkan animator untuk membuat intro video korporat. Durasi 5-10 detik, gaya modern dan profesional, format MP4.', budgetMin:800000, budgetMax:1500000, deadline:'2025-07-10', skills:['After Effects','Motion Graphics','Cinema 4D'], status:'open', rating:4.8, client:'Korporat XYZ' },
+];
+
+const sampleTalents = [
+  { id:1, name:'Fahmi Design', role:'Desainer Grafis', skills:['Logo','Branding','Figma'], rating:4.9, reviews:126, color:'#2563EB', initials:'FD', badge:'top', location:'Jakarta', joined:'2022', bio:'Desainer grafis dengan pengalaman 3 tahun. Spesialis logo, branding, dan social media design.', projectsDone:87 },
+  { id:2, name:'Cindy Studio', role:'Video Editor', skills:['Premiere Pro','After Effects','Color Grading'], rating:4.8, reviews:94, color:'#7C3AED', initials:'CS', badge:'fast', location:'Bandung', joined:'2023', bio:'Video editor profesional spesialis konten YouTube dan iklan digital.', projectsDone:56 },
+  { id:3, name:'Raka Content', role:'Content Creator', skills:['Writing','Canva','Social Media'], rating:4.9, reviews:211, color:'#059669', initials:'RC', badge:'trusted', location:'Surabaya', joined:'2021', bio:'Content creator dengan 200+ project selesai. Spesialis Instagram dan TikTok.', projectsDone:211 },
+  { id:4, name:'Aisyah Art', role:'Ilustrator', skills:['Procreate','Digital Art','Character Design'], rating:4.7, reviews:78, color:'#DB2777', initials:'AA', badge:'top', location:'Yogyakarta', joined:'2022', bio:'Ilustrator digital spesialis karakter anime dan ilustrasi untuk brand.', projectsDone:61 },
+  { id:5, name:'Bagas SEO', role:'Content Writer', skills:['SEO','WordPress','Copywriting'], rating:4.6, reviews:143, color:'#D97706', initials:'BS', badge:'trusted', location:'Medan', joined:'2023', bio:'Content writer spesialis SEO dengan rekam jejak meningkatkan traffic organik klien.', projectsDone:98 },
+  { id:6, name:'Nadia UI', role:'UI/UX Designer', skills:['Figma','Prototyping','User Research'], rating:4.9, reviews:67, color:'#0891B2', initials:'NU', badge:'top', location:'Jakarta', joined:'2023', bio:'UI/UX designer yang berfokus pada user-centered design untuk mobile dan web.', projectsDone:43 },
+];
+
+const sampleChats = [
+  { id:1, name:'Fahmi Design', initials:'FD', color:'#2563EB', preview:'Baik kak, ini saya kirimkan brief-nya.', time:'10:34', unread:2, online:true,
+    messages:[
+      {from:'them',text:'Halo kak, saya tertarik dengan project ini 😊',time:'10:10'},
+      {from:'them',text:'Apakah bisa dibahas lebih lanjut?',time:'10:11'},
+      {from:'me',text:'Halo! Tentu bisa, silakan kirimkan referensi atau detail lebih lanjut.',time:'10:32'},
+      {from:'them',text:'Baik kak, ini saya kirimkan brief-nya.',time:'10:34'},
+    ]
+  },
+  { id:2, name:'Cindy Studio', initials:'CS', color:'#7C3AED', preview:'Siap kak, kapan bisa mulai?', time:'Kemarin', unread:1, online:false,
+    messages:[
+      {from:'them',text:'Selamat siang kak, saya Cindy dari Bandung.',time:'14:00'},
+      {from:'me',text:'Halo Cindy! Sudah lihat brief project saya?',time:'14:15'},
+      {from:'them',text:'Sudah kak, saya sanggup. Untuk timeline-nya kira-kira 3 hari.',time:'14:20'},
+      {from:'me',text:'Oke, sounds good!',time:'14:25'},
+      {from:'them',text:'Siap kak, kapan bisa mulai?',time:'14:26'},
+    ]
+  },
+  { id:3, name:'Raka Content', initials:'RC', color:'#059669', preview:'Terima kasih sudah dipercaya!', time:'Sen', unread:0, online:true,
+    messages:[
+      {from:'me',text:'Raka, project konten Instagram sudah selesai review ya.',time:'09:00'},
+      {from:'them',text:'Siap kak! Semoga hasilnya memuaskan.',time:'09:05'},
+      {from:'them',text:'Terima kasih sudah dipercaya!',time:'09:06'},
+    ]
+  },
+];
+
+const sampleNotifs = [
+  { icon:'bi-chat-dots-fill', color:'#2563EB', bg:'#DBEAFE', title:'Pesan baru dari Fahmi Design', text:'Baik kak, ini saya kirimkan brief-nya. Mohon dicheck.', time:'5 menit lalu', unread:true },
+  { icon:'bi-briefcase-fill', color:'#10B981', bg:'#D1FAE5', title:'Project Anda mendapat proposal baru', text:'Cindy Studio telah melamar project "Edit Video YouTube 10 Menit"', time:'1 jam lalu', unread:true },
+  { icon:'bi-star-fill', color:'#F59E0B', bg:'#FEF3C7', title:'Review baru diterima', text:'Anda mendapatkan rating 5★ dari project Desain Logo Brand', time:'3 jam lalu', unread:true },
+  { icon:'bi-shield-check-fill', color:'#7C3AED', bg:'#EDE9FE', title:'Pembayaran Escrow diterima', text:'Dana Rp500.000 untuk project Desain Logo sudah aman di escrow', time:'1 hari lalu', unread:false },
+  { icon:'bi-bell-fill', color:'#EF4444', bg:'#FEE2E2', title:'Deadline mendekat!', text:'Project "Konten Instagram" deadline dalam 2 hari lagi', time:'1 hari lalu', unread:false },
+];
+
+// ========== AUTH ==========
+function getUsers() { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+function saveUsers(users) { localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
+function getSession() { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
+function saveSession(user, remember) {
+  const s = { ...user, loginTime: Date.now() };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+  if (remember) localStorage.setItem('pk_remember', '1');
+}
+
+function hashPw(pw) {
+  let h = 0;
+  for (let i = 0; i < pw.length; i++) { h = ((h << 5) - h) + pw.charCodeAt(i); h |= 0; }
+  return h.toString(16);
+}
+
+function togglePw(id, btn) {
+  const el = document.getElementById(id);
+  if (el.type === 'password') { el.type = 'text'; btn.innerHTML = '<i class="bi bi-eye"></i>'; }
+  else { el.type = 'password'; btn.innerHTML = '<i class="bi bi-eye-slash"></i>'; }
+}
+
+function showPage(pageId) {
+  document.querySelectorAll('#auth-root .auth-left-right').forEach(p => p.style.display = 'none');
+  document.getElementById(pageId).style.display = 'flex';
+}
+
+function selectRole(role, el) {
+  selectedRole = role;
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  let valid = true;
+
+  document.getElementById('login-email-err').textContent = '';
+  document.getElementById('login-pw-err').textContent = '';
+  document.getElementById('login-email').classList.remove('is-invalid');
+  document.getElementById('login-pw').classList.remove('is-invalid');
+
+  if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+    document.getElementById('login-email-err').textContent = 'Email tidak valid';
+    document.getElementById('login-email').classList.add('is-invalid');
+    valid = false;
+  }
+  if (!pw || pw.length < 6) {
+    document.getElementById('login-pw-err').textContent = 'Password minimal 6 karakter';
+    document.getElementById('login-pw').classList.add('is-invalid');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.pwHash === hashPw(pw));
+  if (!user) {
+    document.getElementById('login-email-err').textContent = 'Email atau password salah';
+    document.getElementById('login-email').classList.add('is-invalid');
+    return;
+  }
+  saveSession(user, document.getElementById('remember-me').checked);
+  initApp(user);
+}
+
+function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pw = document.getElementById('reg-pw').value;
+  let valid = true;
+
+  ['reg-name-err','reg-email-err','reg-pw-err','reg-role-err'].forEach(id => document.getElementById(id).textContent = '');
+  ['reg-name','reg-email','reg-pw'].forEach(id => document.getElementById(id).classList.remove('is-invalid'));
+
+  if (!name) { document.getElementById('reg-name-err').textContent = 'Nama wajib diisi'; document.getElementById('reg-name').classList.add('is-invalid'); valid = false; }
+  if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { document.getElementById('reg-email-err').textContent = 'Email tidak valid'; document.getElementById('reg-email').classList.add('is-invalid'); valid = false; }
+  if (!pw || pw.length < 6) { document.getElementById('reg-pw-err').textContent = 'Password minimal 6 karakter'; document.getElementById('reg-pw').classList.add('is-invalid'); valid = false; }
+  if (!selectedRole) { document.getElementById('reg-role-err').textContent = 'Pilih peran Anda'; valid = false; }
+  if (!valid) return;
+
+  const users = getUsers();
+  if (users.find(u => u.email === email)) {
+    document.getElementById('reg-email-err').textContent = 'Email sudah terdaftar';
+    document.getElementById('reg-email').classList.add('is-invalid');
+    return;
+  }
+
+  const user = { id: Date.now(), name, email, pwHash: hashPw(pw), role: selectedRole, location: '', bio: '', joinDate: new Date().toLocaleDateString('id-ID',{month:'long',year:'numeric'}) };
+  users.push(user);
+  saveUsers(users);
+  saveSession(user, false);
+  initApp(user);
+}
+
+function loginDemo() {
+  // Demo login as client
+  const users = getUsers();
+  let demo = users.find(u => u.email === 'demo@projectkita.id');
+  if (!demo) {
+    demo = { id: 999, name: 'Advisa Saputra', email: 'demo@projectkita.id', pwHash: hashPw('demo123'), role: 'client', location: 'Jakarta, Indonesia', bio: 'Demo user ProjectKita', joinDate: 'Mei 2024' };
+    users.push(demo);
+    saveUsers(users);
+  }
+  saveSession(demo, true);
+  initApp(demo);
+}
+
+function doLogout() {
+  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem('pk_remember');
+  currentUser = null;
+  document.getElementById('app-root').style.display = 'none';
+  document.getElementById('auth-root').style.display = 'block';
+  showPage('page-login');
+  showToast('Anda berhasil keluar','info');
+}
+
+// ========== APP INIT ==========
+function initApp(user) {
+  currentUser = user;
+  document.getElementById('auth-root').style.display = 'none';
+  document.getElementById('app-root').style.display = 'block';
+
+  // Set sidebar user
+  const initials = user.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('sidebar-avatar').textContent = initials;
+  document.getElementById('sidebar-name').textContent = user.name;
+  document.getElementById('sidebar-role').textContent = user.role === 'client' ? 'Client' : 'Talent';
+
+  // Show/hide role-specific nav
+  if (user.role === 'talent') {
+    document.getElementById('nav-client-label').style.display = 'none';
+    document.getElementById('nav-post').style.display = 'none';
+    document.getElementById('nav-myprojects').style.display = 'none';
+    document.getElementById('nav-talent-label').style.display = 'block';
+    document.getElementById('nav-portfolio').style.display = 'flex';
+    document.getElementById('nav-proposals').style.display = 'flex';
+  }
+
+  // Hero greeting
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Selamat Pagi' : hour < 18 ? 'Selamat Siang' : 'Selamat Malam';
+  document.getElementById('hero-greeting').textContent = `${greet}, ${user.name.split(' ')[0]}! 👋`;
+
+  // Profile page
+  document.getElementById('profile-avatar-lg').textContent = initials;
+  document.getElementById('profile-full-name').textContent = user.name;
+  document.getElementById('profile-role-tag').innerHTML = `<i class="bi bi-person-badge"></i> ${user.role === 'client' ? 'Client' : 'Talent'}`;
+  document.getElementById('prof-name').value = user.name;
+  document.getElementById('prof-email').value = user.email;
+  document.getElementById('prof-location').value = user.location || '';
+  document.getElementById('prof-bio').value = user.bio || '';
+
+  renderHomeTables();
+  renderProjects();
+  renderChat();
+  renderTracking();
+  renderNotifications();
+  renderAnalytics();
+  renderPortfolio();
+  renderProposals();
+  animateCounters();
+  navigate('home');
+}
+
+// ========== NAVIGATION ==========
+const pageTitles = {
+  'home':'Home','explore':'Explore Marketplace','chat':'Chat','tracking':'Tracking Project',
+  'payment':'Pembayaran','post-project':'Buat Project Baru','my-projects':'Project Saya',
+  'portfolio':'Portofolio','proposals':'Lamaran Saya','notifications':'Notifikasi',
+  'analytics':'Analytics','profile':'Profil Saya'
+};
+
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  const el = document.getElementById('page-' + page.replace('-','_').replace('-','_'));
+  if (el) el.classList.add('active');
+
+  // Activate correct page by looping all
+  document.querySelectorAll('.page').forEach(p => {
+    if (p.id === 'page-' + page.replace(/-/g,'_')) p.classList.add('active');
+  });
+  // Actually just target by ID
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); pageEl.classList.add('active'); }
+
+  document.getElementById('topbar-title').textContent = pageTitles[page] || page;
+  closeSidebar();
+
+  // Highlight nav
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${page}'`)) n.classList.add('active');
+  });
+}
+
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('mobile-overlay').classList.add('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('mobile-overlay').classList.remove('open'); }
+
+// ========== RENDER HOME ==========
+function renderHomeTables() {
+  const tbody = document.getElementById('home-project-table');
+  tbody.innerHTML = sampleProjects.slice(0,5).map(p => `
+    <tr onclick="openProjectModal(${p.id})" style="cursor:pointer">
+      <td><div style="font-weight:600;font-size:13px">${p.title}</div><div style="font-size:11px;color:var(--text-muted)">${p.skills.slice(0,2).join(', ')}</div></td>
+      <td><span style="font-weight:700;color:var(--primary);font-size:13px">Rp${fmtNum(p.budgetMax)}</span></td>
+      <td><span class="status-badge status-${p.status}"><span class="status-dot"></span>${statusLabel(p.status)}</span></td>
+    </tr>
+  `).join('');
+
+  const talentEl = document.getElementById('home-talents');
+  talentEl.innerHTML = sampleTalents.slice(0,3).map(t => `
+    <div onclick="openTalentModal(${t.id})" style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:var(--radius-md);cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+      <div style="width:44px;height:44px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:700;color:white;flex-shrink:0">${t.initials}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600">${t.name}</div>
+        <div style="font-size:12px;color:var(--text-muted)">${t.role}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;font-weight:700">★ ${t.rating}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${t.reviews} ulasan</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========== RENDER PROJECTS ==========
+function renderProjects() {
+  renderProjectsGrid('projects-grid', sampleProjects);
+  renderProjectsGrid('my-projects-grid', sampleProjects.slice(0,4));
+}
+
+function renderProjectsGrid(targetId, projects) {
+  const grid = document.getElementById(targetId);
+  if (!grid) return;
+  grid.innerHTML = projects.map(p => `
+    <div class="project-card" onclick="openProjectModal(${p.id})">
+      <div class="project-card-header">
+        <span class="category-badge badge-${p.cat}">${catLabel(p.cat)}</span>
+        <button class="bookmark-btn" onclick="event.stopPropagation();this.classList.toggle('active')" title="Simpan"><i class="bi bi-bookmark${this && this.classList && this.classList.contains('active') ? '-fill' : ''}"></i></button>
+      </div>
+      <div class="project-card-body">
+        <div class="project-card-title">${p.title}</div>
+        <div class="project-card-desc">${p.desc}</div>
+        <div class="project-meta">
+          <div class="meta-item"><i class="bi bi-clock"></i>${deadlineText(p.deadline)}</div>
+          <div class="meta-item"><i class="bi bi-person"></i>${p.client}</div>
+        </div>
+        <div class="project-footer">
+          <span class="budget-range">Rp${fmtNum(p.budgetMin)} – Rp${fmtNum(p.budgetMax)}</span>
+          <span class="status-badge status-${p.status}"><span class="status-dot"></span>${statusLabel(p.status)}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('filter-count') && (document.getElementById('filter-count').textContent = `Menampilkan ${projects.length} project`);
+}
+
+function filterCat(cat, el) {
+  activeFilterCat = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  let filtered = sampleProjects;
+  if (activeFilterCat !== 'semua') filtered = filtered.filter(p => p.cat === activeFilterCat);
+  renderProjectsGrid('projects-grid', filtered);
+}
+
+// ========== PROJECT MODAL ==========
+function openProjectModal(id) {
+  const p = sampleProjects.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modal-project-title').textContent = p.title;
+  document.getElementById('modal-project-body').innerHTML = `
+    <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px">
+      <span class="category-badge badge-${p.cat}">${catLabel(p.cat)}</span>
+      <span class="status-badge status-${p.status}"><span class="status-dot"></span>${statusLabel(p.status)}</span>
+    </div>
+    <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:20px">${p.desc}</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div style="background:var(--bg-secondary);border-radius:var(--radius-md);padding:14px">
+        <div style="font-size:12px;color:var(--text-muted)">Budget</div>
+        <div style="font-size:16px;font-weight:700;color:var(--primary);margin-top:4px">Rp${fmtNum(p.budgetMin)} – Rp${fmtNum(p.budgetMax)}</div>
+      </div>
+      <div style="background:var(--bg-secondary);border-radius:var(--radius-md);padding:14px">
+        <div style="font-size:12px;color:var(--text-muted)">Deadline</div>
+        <div style="font-size:16px;font-weight:700;margin-top:4px">${deadlineText(p.deadline)}</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;margin-bottom:8px">Skill Dibutuhkan</div><div style="display:flex;flex-wrap:wrap;gap:6px">${p.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-md)">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white">${p.client.split(' ').map(n=>n[0]).join('').substring(0,2)}</div>
+      <div><div style="font-size:13px;font-weight:600">${p.client}</div><div style="font-size:12px;color:var(--text-muted)">Client</div></div>
+      <div style="margin-left:auto;font-size:13px;font-weight:700">★ ${p.rating}</div>
+    </div>
+  `;
+  const isClient = currentUser && currentUser.role === 'client';
+  document.getElementById('modal-project-footer').innerHTML = `
+    <button class="btn btn-secondary" onclick="closeModal('modal-project')">Tutup</button>
+    ${isClient ? '' : `<button class="btn btn-primary" onclick="applyProject(${p.id})"><i class="bi bi-send-fill"></i> Lamar Project</button>`}
+    <button class="btn btn-primary" onclick="closeModal('modal-project');navigate('chat')"><i class="bi bi-chat-dots-fill"></i> Chat Client</button>
+  `;
+  openModal('modal-project');
+}
+
+function applyProject(id) {
+  closeModal('modal-project');
+  showToast('Lamaran berhasil dikirim! 🎉', 'success');
+}
+
+// ========== TALENT MODAL ==========
+function openTalentModal(id) {
+  const t = sampleTalents.find(x => x.id === id);
+  if (!t) return;
+  const badgeMap = { top:'⭐ Top Talent', fast:'⚡ Fast Response', trusted:'🛡 Trusted Freelancer' };
+  document.getElementById('modal-talent-body').innerHTML = `
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="width:80px;height:80px;border-radius:50%;background:${t.color};display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:28px;font-weight:800;color:white;margin:0 auto 12px">${t.initials}</div>
+      <div style="font-family:var(--font-display);font-size:20px;font-weight:700">${t.name}</div>
+      <div style="color:var(--text-secondary);font-size:13px;margin-top:4px">${t.role}</div>
+      <div style="margin-top:8px"><span class="achievement-badge badge-top">${badgeMap[t.badge] || ''}</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px">
+        <span class="rating-stars">★★★★★</span>
+        <span style="font-weight:700">${t.rating}</span>
+        <span style="color:var(--text-muted);font-size:13px">(${t.reviews} ulasan)</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+      <div style="text-align:center;background:var(--bg-secondary);padding:12px;border-radius:var(--radius-md)">
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:800">${t.projectsDone}</div>
+        <div style="font-size:11px;color:var(--text-muted)">Project Selesai</div>
+      </div>
+      <div style="text-align:center;background:var(--bg-secondary);padding:12px;border-radius:var(--radius-md)">
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:800">${t.rating}</div>
+        <div style="font-size:11px;color:var(--text-muted)">Rating</div>
+      </div>
+      <div style="text-align:center;background:var(--bg-secondary);padding:12px;border-radius:var(--radius-md)">
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:800">98%</div>
+        <div style="font-size:11px;color:var(--text-muted)">Response Rate</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;margin-bottom:4px">Tentang</div><p style="font-size:13px;color:var(--text-secondary);line-height:1.6">${t.bio}</p></div>
+    <div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;margin-bottom:8px">Skill</div><div style="display:flex;flex-wrap:wrap;gap:6px">${t.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div></div>
+    <div style="display:flex;gap:16px;font-size:13px;color:var(--text-muted)">
+      <div><i class="bi bi-geo-alt"></i> ${t.location}</div>
+      <div><i class="bi bi-calendar3"></i> Bergabung ${t.joined}</div>
+    </div>
+  `;
+  openModal('modal-talent');
+}
+
+function hireTalent() { closeModal('modal-talent'); navigate('chat'); showToast('Mulai chat dengan talent!', 'success'); }
+
+// ========== CHAT ==========
+function renderChat() {
+  const list = document.getElementById('chat-list-body');
+  list.innerHTML = sampleChats.map((c,i) => `
+    <div class="chat-item ${i===0?'active':''}" onclick="openChat(${c.id})">
+      <div class="chat-item-avatar" style="background:${c.color}">${c.initials}</div>
+      <div class="chat-item-info">
+        <div class="chat-item-name">${c.name}</div>
+        <div class="chat-item-preview">${c.preview}</div>
+      </div>
+      <div class="chat-item-meta">
+        <div class="chat-item-time">${c.time}</div>
+        ${c.unread ? `<div class="chat-item-badge">${c.unread}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+  openChat(1);
+}
+
+function openChat(id) {
+  activeChatId = id;
+  const c = sampleChats.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('chat-active-name').textContent = c.name;
+  document.getElementById('chat-active-status').textContent = c.online ? '● Online' : '○ Offline';
+  document.getElementById('chat-active-status').style.color = c.online ? 'var(--success)' : 'var(--text-muted)';
+  document.getElementById('chat-active-avatar').textContent = c.initials;
+  document.getElementById('chat-active-avatar').style.background = c.color;
+
+  const msgs = document.getElementById('chat-messages');
+  msgs.innerHTML = c.messages.map(m => {
+    const isSent = m.from === 'me';
+    return `
+    <div class="msg ${isSent?'sent':'recv'}">
+      ${!isSent ? `<div class="msg-avatar" style="background:${c.color}">${c.initials}</div>` : ''}
+      <div>
+        <div class="msg-bubble">${m.text}</div>
+        <div class="msg-time">${m.time}</div>
+      </div>
+    </div>`;
+  }).join('');
+  msgs.scrollTop = msgs.scrollHeight;
+
+  document.querySelectorAll('.chat-item').forEach((el,i) => {
+    el.classList.toggle('active', sampleChats[i] && sampleChats[i].id === id);
+  });
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const c = sampleChats.find(x => x.id === activeChatId);
+  if (!c) return;
+  const now = new Date();
+  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  c.messages.push({ from:'me', text, time });
+  input.value = '';
+  openChat(activeChatId);
+
+  // Simulate reply
+  setTimeout(() => {
+    const replies = ['Baik, siap kak!', 'Oke, akan segera saya proses.', 'Terima kasih infonya!', 'Siap, nanti saya kabari.'];
+    c.messages.push({ from:'them', text: replies[Math.floor(Math.random()*replies.length)], time });
+    openChat(activeChatId);
+  }, 1500);
+}
+
+// ========== TRACKING ==========
+function renderTracking() {
+  const projects = [
+    { id:1, title:'Desain Logo untuk Brand Minuman', talent:'Fahmi Design', progress:70, status:'progress', deadline:'20 Jun 2025',
+      timeline:[
+        {label:'Project Dibuat', date:'10 Mei 2025, 09:00', done:true},
+        {label:'Talent Dipilih', date:'10 Mei 2025, 10:30', done:true},
+        {label:'Sedang Dikerjakan', date:'11 Mei 2025, 14:20', done:false, current:true},
+        {label:'Revisi', date:'Menunggu revisi dari client', done:false},
+        {label:'Selesai', date:'Project ditutup setelah selesai', done:false},
+      ]
+    },
+    { id:2, title:'Edit Video YouTube 10 Menit', talent:'Cindy Studio', progress:35, status:'progress', deadline:'25 Jun 2025',
+      timeline:[
+        {label:'Project Dibuat', date:'12 Mei 2025', done:true},
+        {label:'Talent Dipilih', date:'13 Mei 2025', done:true},
+        {label:'Sedang Dikerjakan', date:'14 Mei 2025', done:false, current:true},
+        {label:'Revisi', date:'Belum dimulai', done:false},
+        {label:'Selesai', date:'Belum dimulai', done:false},
+      ]
+    },
+  ];
+
+  const list = document.getElementById('tracking-list');
+  list.innerHTML = projects.map(p => `
+    <div class="card" style="margin-bottom:16px;cursor:pointer" onclick="showTrackingDetail(${p.id})">
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <div><div style="font-family:var(--font-display);font-size:15px;font-weight:700">${p.title}</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Talent: ${p.talent} · Deadline: ${p.deadline}</div></div>
+          <span class="status-badge status-progress"><span class="status-dot"></span>Berlangsung</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px"><span>Progress Saat Ini</span><span style="font-weight:700;color:var(--primary)">${p.progress}%</span></div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${p.progress}%"></div></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation();navigate('chat')"><i class="bi bi-chat-dots"></i> Chat</button>
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showTrackingDetail(${p.id})"><i class="bi bi-eye"></i> Detail</button>
+          <button class="btn btn-sm" style="background:#D1FAE5;color:#059669;border:none" onclick="event.stopPropagation();document.getElementById('modal-review').classList.add('open')"><i class="bi bi-star"></i> Review</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  window._trackingProjects = projects;
+}
+
+function showTrackingDetail(id) {
+  const p = window._trackingProjects && window._trackingProjects.find(x => x.id === id);
+  if (!p) return;
+  const detail = document.getElementById('tracking-detail');
+  detail.style.display = 'block';
+  document.getElementById('tracking-detail-body').innerHTML = `
+    <h4 style="font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:4px">${p.title}</h4>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:20px">Talent: ${p.talent}</p>
+    <div class="timeline">
+      ${p.timeline.map(t => `
+        <div class="timeline-item">
+          <div class="timeline-icon ${t.done ? 'done' : t.current ? 'current' : 'pending'}">
+            <i class="bi bi-${t.done ? 'check-lg' : t.current ? 'arrow-right' : 'circle'}"></i>
+          </div>
+          <div class="timeline-content">
+            <h4>${t.label}</h4>
+            <p>${t.date}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top:16px;padding:14px;background:var(--bg-secondary);border-radius:var(--radius-md)">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Progress Keseluruhan</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${p.progress}%"></div></div>
+      <div style="text-align:right;font-size:13px;font-weight:700;color:var(--primary);margin-top:6px">${p.progress}%</div>
+    </div>
+  `;
+}
+
+// ========== NOTIFICATIONS ==========
+function renderNotifications() {
+  document.getElementById('notif-body').innerHTML = sampleNotifs.map(n => `
+    <div class="notif-item ${n.unread ? 'notif-unread' : ''}">
+      <div class="notif-icon" style="background:${n.bg};color:${n.color}"><i class="bi ${n.icon}"></i></div>
+      <div class="notif-body">
+        <h4>${n.title}</h4>
+        <p>${n.text}</p>
+        <time>${n.time}</time>
+      </div>
+      ${n.unread ? `<div style="width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:6px"></div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ========== ANALYTICS ==========
+function renderAnalytics() {
+  document.getElementById('analytics-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-icon" style="background:#EFF6FF;color:#2563EB"><i class="bi bi-briefcase-fill"></i></div><div class="label">Total Project</div><div class="value">16</div><div class="change up"><i class="bi bi-arrow-up"></i> +25% dari bulan lalu</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:#D1FAE5;color:#10B981"><i class="bi bi-currency-dollar"></i></div><div class="label">Total Pendapatan</div><div class="value">Rp8,2Jt</div><div class="change up"><i class="bi bi-arrow-up"></i> +18% bulan ini</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="bi bi-star-fill"></i></div><div class="label">Rating Rata-rata</div><div class="value">4.9★</div><div class="change up"><i class="bi bi-arrow-up"></i> Top 5% talent</div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:#FCE7F3;color:#DB2777"><i class="bi bi-people-fill"></i></div><div class="label">Client Repeat</div><div class="value">68%</div><div class="change up"><i class="bi bi-arrow-up"></i> +5% bulan ini</div></div>
+  `;
+
+  const cats = [{l:'Desain',v:40,c:'#2563EB'},{l:'Video',v:25,c:'#7C3AED'},{l:'Konten',v:20,c:'#059669'},{l:'Ilustrasi',v:10,c:'#DB2777'},{l:'Lainnya',v:5,c:'#D97706'}];
+  document.getElementById('analytics-cat-chart').innerHTML = cats.map(c => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 24px">
+      <div style="font-size:13px;width:80px;color:var(--text-secondary)">${c.l}</div>
+      <div style="flex:1;background:var(--bg-secondary);border-radius:99px;height:10px;overflow:hidden">
+        <div style="width:${c.v}%;height:100%;background:${c.c};border-radius:99px"></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;width:36px;text-align:right">${c.v}%</div>
+    </div>
+  `).join('');
+
+  const achievements = [
+    {icon:'⭐', label:'Top Talent', desc:'Masuk 5% talent terbaik', color:'#FEF3C7', tc:'#D97706'},
+    {icon:'⚡', label:'Fast Response', desc:'Waktu respons < 1 jam', color:'#D1FAE5', tc:'#059669'},
+    {icon:'🛡', label:'Trusted Freelancer', desc:'100+ project selesai', color:'#DBEAFE', tc:'#2563EB'},
+  ];
+  document.getElementById('analytics-achievements').innerHTML = achievements.map(a => `
+    <div style="display:flex;align-items:center;gap:14px;padding:14px;background:${a.color};border-radius:var(--radius-md);margin-bottom:10px">
+      <div style="font-size:28px">${a.icon}</div>
+      <div><div style="font-size:14px;font-weight:700;color:${a.tc}">${a.label}</div><div style="font-size:12px;color:var(--text-secondary);margin-top:2px">${a.desc}</div></div>
+    </div>
+  `).join('');
+}
+
+// ========== PORTFOLIO ==========
+function renderPortfolio() {
+  const items = [
+    {title:'Logo Brand Kopi', cat:'Desain', color:'#DBEAFE'},
+    {title:'Poster Event Musik', cat:'Desain', color:'#EDE9FE'},
+    {title:'Animasi Intro Channel', cat:'Video', color:'#D1FAE5'},
+    {title:'Ilustrasi Mascot', cat:'Ilustrasi', color:'#FCE7F3'},
+    {title:'Konten IG 12 Post', cat:'Konten', color:'#FEF3C7'},
+    {title:'UI Mobile App', cat:'Desain', color:'#CCFBF1'},
+  ];
+  const grid = document.getElementById('portfolio-grid');
+  if (!grid) return;
+  grid.innerHTML = items.map(item => `
+    <div class="card" style="cursor:pointer" onclick="showToast('Preview portofolio coming soon!','info')">
+      <div style="height:160px;background:${item.color};display:flex;align-items:center;justify-content:center">
+        <i class="bi bi-image" style="font-size:48px;opacity:.3"></i>
+      </div>
+      <div style="padding:14px">
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700">${item.title}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${item.cat}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========== PROPOSALS ==========
+function renderProposals() {
+  const el = document.getElementById('proposals-list');
+  if (!el) return;
+  el.innerHTML = sampleProjects.slice(0,4).map(p => `
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-body" style="display:flex;align-items:center;gap:16px">
+        <span class="category-badge badge-${p.cat}">${catLabel(p.cat)}</span>
+        <div style="flex:1">
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:700">${p.title}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px">Budget: Rp${fmtNum(p.budgetMin)}–Rp${fmtNum(p.budgetMax)}</div>
+        </div>
+        <span class="status-badge status-${p.id===1?'progress':'open'}">${p.id===1?'Diterima':'Menunggu'}</span>
+        <button class="btn btn-secondary btn-sm" onclick="navigate('chat')"><i class="bi bi-chat-dots"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ========== POST PROJECT ==========
+function publishProject() {
+  const name = document.getElementById('pp-name').value.trim();
+  const cat = document.getElementById('pp-cat').value;
+  const desc = document.getElementById('pp-desc').value.trim();
+  if (!name || !cat || !desc) { showToast('Lengkapi semua field wajib', 'error'); return; }
+  showToast('Project berhasil dipublish! 🎉', 'success');
+  navigate('my-projects');
+}
+
+// ========== PAYMENT ==========
+function selectPayment(el) {
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input[type=radio]').checked = true;
+}
+
+function processPayment() {
+  showToast('Pembayaran sedang diproses... 💳', 'info');
+  setTimeout(() => { showToast('Pembayaran berhasil! Dana aman di escrow. ✅', 'success'); navigate('tracking'); }, 2000);
+}
+
+// ========== REVIEW ==========
+function setRating(n) {
+  currentRating = n;
+  const stars = document.getElementById('review-stars').querySelectorAll('span');
+  stars.forEach((s,i) => s.textContent = i < n ? '★' : '☆');
+  document.getElementById('review-stars').querySelectorAll('span').forEach((s,i) => s.style.color = i < n ? '#F59E0B' : '#CBD5E1');
+}
+
+function submitReview() {
+  if (!currentRating) { showToast('Pilih rating terlebih dahulu', 'error'); return; }
+  closeModal('modal-review');
+  showToast('Ulasan berhasil dikirim! ⭐', 'success');
+}
+
+// ========== PROFILE ==========
+function saveProfile() {
+  if (!currentUser) return;
+  currentUser.name = document.getElementById('prof-name').value.trim() || currentUser.name;
+  currentUser.location = document.getElementById('prof-location').value.trim();
+  currentUser.bio = document.getElementById('prof-bio').value.trim();
+  const users = getUsers();
+  const idx = users.findIndex(u => u.id === currentUser.id);
+  if (idx >= 0) { users[idx] = { ...users[idx], ...currentUser }; saveUsers(users); }
+  const session = getSession();
+  if (session) { saveSession(currentUser, localStorage.getItem('pk_remember') === '1'); }
+  const initials = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('sidebar-avatar').textContent = initials;
+  document.getElementById('sidebar-name').textContent = currentUser.name;
+  document.getElementById('profile-avatar-lg').textContent = initials;
+  document.getElementById('profile-full-name').textContent = currentUser.name;
+  showToast('Profil berhasil disimpan!', 'success');
+}
+
+// ========== UTILS ==========
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function showToast(msg, type = 'info') {
+  const icons = { success:'bi-check-circle-fill', error:'bi-x-circle-fill', info:'bi-info-circle-fill' };
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="bi ${icons[type] || icons.info}"></i> ${msg}`;
+  document.getElementById('toast-container').appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(), 300); }, 3000);
+}
+
+function fmtNum(n) { return n >= 1000000 ? (n/1000000).toFixed(1).replace('.0','') + 'Jt' : n >= 1000 ? (n/1000).toFixed(0) + 'K' : n; }
+
+function catLabel(cat) {
+  return {desain:'Desain Grafis',video:'Video Editing',konten:'Content Creator',ilustrasi:'Ilustrasi',penulisan:'Penulisan',lainnya:'Lainnya'}[cat] || cat;
+}
+
+function statusLabel(s) {
+  return {open:'Buka Lamaran',progress:'Sedang Dikerjakan',review:'Dalam Review',done:'Selesai'}[s] || s;
+}
+
+function deadlineText(dateStr) {
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = Math.round((d - now) / 86400000);
+  if (diff < 0) return 'Terlewat';
+  if (diff === 0) return 'Hari ini';
+  return `${diff} hari lagi`;
+}
+
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const isRating = target < 100;
+    let current = 0;
+    const step = Math.ceil(target / 60);
+    const interval = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = isRating ? (current / 10).toFixed(1) + '★' : current.toLocaleString('id-ID');
+      if (current >= target) clearInterval(interval);
+    }, 25);
+  });
+}
+
+// Close modals clicking overlay
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+});
+
+// ========== SPLASH + BOOT ==========
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').style.opacity = '0';
+    setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 400);
+
+    const session = getSession();
+    const remember = localStorage.getItem('pk_remember') === '1';
+    if (session && remember) {
+      initApp(session);
+    } else {
+      document.getElementById('auth-root').style.display = 'block';
+      showPage('page-login');
+    }
+  }, 1800);
+});
+
+// ========== PWA SERVICE WORKER ==========
+if ('serviceWorker' in navigator) {
+  const swCode = `
+const CACHE = 'projectkita-v1';
+const URLS = ['/'];
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(URLS))));
+self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+// Inline manifest
+const manifest = {
+  name: 'ProjectKita',
+  short_name: 'ProjectKita',
+  description: 'Solusi Cepat untuk Setiap Project',
+  start_url: '/',
+  display: 'standalone',
+  background_color: '#ffffff',
+  theme_color: '#2563EB',
+  icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%232563EB"/><text y=".9em" font-size="70" x="15">⚡</text></svg>', sizes: '192x192', type: 'image/svg+xml' }]
+};
+const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+document.getElementById('manifest-link').rel = 'manifest';
+</script>
+</body>
+</html>
