@@ -304,6 +304,19 @@ section{padding:96px 5%}
 .btn-cta-outline{background:transparent;color:white;font-family:var(--display);font-size:15px;font-weight:700;padding:14px 32px;border-radius:var(--r-md);border:2px solid rgba(255,255,255,.4);cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
 .btn-cta-outline:hover{border-color:white;background:rgba(255,255,255,.1)}
 
+
+.blog-section{background:var(--bg)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.blog-card{background:white;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:all .25s}
+.blog-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--blue-light)}
+.blog-image{height:170px;background:linear-gradient(135deg,var(--blue-light),#EFF6FF);display:flex;align-items:center;justify-content:center;font-size:52px}
+.blog-body{padding:24px}
+.blog-tag{display:inline-block;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:700;padding:5px 10px;border-radius:99px;margin-bottom:12px}
+.blog-body h3{font-family:var(--display);font-size:17px;line-height:1.35;color:var(--navy);margin-bottom:10px}
+.blog-body p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.blog-link{font-size:13px;font-weight:700;color:var(--blue)}
+.blog-link:hover{color:var(--blue-dark)}
+
 .faq-section{background:var(--bg)}
 .faq-wrap{max-width:720px;margin:0 auto}
 .faq-item{background:white;border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:10px;overflow:hidden;}
@@ -350,9 +363,54 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
 .drawer-links a:hover{background:var(--bg);color:var(--blue)}
 .drawer-ctas{display:flex;flex-direction:column;gap:10px;margin-top:auto}
 
-@media(max-width:1100px){.kat-grid{grid-template-columns:repeat(3,1fr)}.talent-grid{grid-template-columns:repeat(2,1fr)}.fitur-grid{grid-template-columns:repeat(2,1fr)}.footer-top{grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.blog-grid{grid-template-columns:1fr 1fr}.kat-grid{grid-template-columns:repeat(3,1fr)}.talent-grid{grid-template-columns:repeat(2,1fr)}.fitur-grid{grid-template-columns:repeat(2,1fr)}.footer-top{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.hero{grid-template-columns:1fr;padding:100px 5% 60px;text-align:center}.hero-sub{margin:0 auto 36px}.hero-actions{justify-content:center}.hero-trust{justify-content:center}.hero-visual{display:none}.steps-grid{grid-template-columns:1fr}.steps-panel{display:none}.testi-grid{grid-template-columns:1fr}.cta-box{flex-direction:column;text-align:center;padding:48px 32px}.cta-right{flex-direction:column}.trust-cards{grid-template-columns:1fr}.nav-links,.nav-cta{display:none}.nav-hamburger{display:block}}
-@media(max-width:640px){section{padding:64px 5%}.kat-grid{grid-template-columns:repeat(2,1fr)}.fitur-grid{grid-template-columns:1fr}.talent-grid{grid-template-columns:1fr 1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-right:1px solid rgba(255,255,255,.08)}.footer-top{grid-template-columns:1fr}.cta-box{padding:36px 24px}}
+@media(max-width:640px){section{padding:64px 5%}.blog-grid{grid-template-columns:1fr}.kat-grid{grid-template-columns:repeat(2,1fr)}.fitur-grid{grid-template-columns:1fr}.talent-grid{grid-template-columns:1fr 1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}.stat-item:nth-child(2){border-right:none}.stat-item:nth-child(3){border-right:1px solid rgba(255,255,255,.08)}.footer-top{grid-template-columns:1fr}.cta-box{padding:36px 24px}}
+
+/* Final blog card styling */
+.blog-grid {
+  align-items: stretch;
+}
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.blog-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.blog-card-content .blog-read-more {
+  margin-top: auto;
+  padding-top: 18px;
+  text-decoration: none;
+}
+.blog-read-more {
+  color: var(--blue, #2563eb);
+  transition: color .2s ease, transform .2s ease;
+}
+.blog-read-more:hover {
+  color: var(--blue-mid, #1d4ed8);
+  transform: translateX(2px);
+}
+.blog-read-more span {
+  font-size: 16px;
+}
+
+
+.blog-source-note {
+  margin-top: 34px;
+  text-align: center;
+  color: var(--muted, #64748b);
+  font-size: 13px;
+}
+.blog-source-note a {
+  color: var(--blue, #2563eb);
+  text-decoration: none;
+  font-weight: 600;
+}
+
 </style>
 </head>
 <body>
@@ -362,12 +420,10 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
 <div class="mobile-drawer" id="mobileDrawer">
   <button class="drawer-close" onclick="closeDrawer()">✕</button>
   <div class="drawer-links">
-    <a href="#kategori">Kategori</a>
-    <a href="#cara-kerja">Cara Kerja</a>
+    <a href="#home">Home</a>
     <a href="#fitur">Fitur</a>
-    <a href="#talent">Talent</a>
-    <a href="#testimoni">Testimoni</a>
-    <a href="#faq">FAQ</a>
+    <a href="#testimoni">Review</a>
+    <a href="#blog">Blog</a>
     <a href="#kontak">Kontak</a>
   </div>
   <div class="drawer-ctas">
@@ -385,14 +441,12 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
     <span class="nav-wordmark">ProjectKita</span>
   </div>
   <div class="nav-links">
-  <a href="/kategori/desain">Jasa Desain</a>
-  <a href="/kategori/video-editing">Jasa Video Editing</a>
-  <a href="/kategori/website">Jasa Website</a>
-  <a href="#cara-kerja">Cara Kerja</a>
-  <a href="#fitur">Fitur</a>
-  <a href="#faq">FAQ</a>
-  <a href="#kontak">Kontak</a>
-</div>
+    <a href="#home">Home</a>
+    <a href="#fitur">Fitur</a>
+    <a href="#testimoni">Review</a>
+    <a href="#blog">Blog</a>
+    <a href="#kontak">Kontak</a>
+  </div>
   <div class="nav-cta">
     <a href="#cta" class="btn btn-ghost">Cari Talent</a>
     <a href="#cta" class="btn btn-primary">Mulai Gratis →</a>
@@ -431,22 +485,22 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
         <span style="background:#DB2777">AA</span>
         <span style="background:#D97706">+</span>
       </div>
-      <span>Bergabung dengan <strong style="color:var(--navy)">12.000+</strong> talent aktif</span>
+      <span>Banyak talent kreatif siap membantu projectmu</span>
     </div>
   </div>
   <div class="hero-visual">
     <div class="float-badge fb-top-left">
       <div class="fb-icon" style="background:#D1FAE5;font-size:18px">✅</div>
       <div>
-        <div style="font-family:var(--display);font-size:12px;font-weight:700;color:var(--navy)">Project Selesai!</div>
-        <div style="font-size:11px;color:var(--muted)">Pembayaran diteruskan</div>
+        <div style="font-family:var(--display);font-size:12px;font-weight:700;color:var(--navy)">Pembayaran Aman</div>
+        <div style="font-size:11px;color:var(--muted)">Dana terlindungi sampai project selesai</div>
       </div>
     </div>
     <div class="float-badge fb-bottom-right">
       <div class="fb-icon" style="background:#FEF3C7;font-size:18px">⭐</div>
       <div>
-        <div style="font-family:var(--display);font-size:12px;font-weight:700;color:var(--navy)">Rating 4.9 / 5</div>
-        <div style="font-size:11px;color:var(--muted)">8.293 ulasan</div>
+        <div style="font-family:var(--display);font-size:12px;font-weight:700;color:var(--navy)">Talent Terverifikasi</div>
+        <div style="font-size:11px;color:var(--muted)">Pilih berdasarkan portofolio & review</div>
       </div>
     </div>
     <div class="hero-mockup">
@@ -493,27 +547,10 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
         </div>
       </div>
     </div>
+    <p class="blog-source-note">Sumber artikel mengarah langsung ke halaman jurnal/DOI resmi untuk dibaca lebih lanjut.</p>
   </div>
 </section>
 
-<div class="stats-bar">
-  <div class="stat-item reveal">
-    <div class="stat-num"><span class="counter" data-target="12487">0</span>+</div>
-    <div class="stat-label">Talent Aktif</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-1">
-    <div class="stat-num"><span class="counter" data-target="8293">0</span>+</div>
-    <div class="stat-label">Project Selesai</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-2">
-    <div class="stat-num"><span class="counter" data-target="4">0</span>.<span class="counter" data-target="9">0</span><span style="font-size:28px">★</span></div>
-    <div class="stat-label">Rating Rata-rata</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-3">
-    <div class="stat-num"><span class="counter" data-target="98">0</span>%</div>
-    <div class="stat-label">Client Puas</div>
-  </div>
-</div>
 
 <section class="kategori" id="kategori">
   <div class="section-header center reveal">
@@ -754,6 +791,48 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
 </section>
 
 
+
+
+<section id="blog" class="blog-section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">BLOG</span>
+      <h2>Insight & Tips Kreatif</h2>
+      <p>Temukan tips dan insight untuk membantu project kreatifmu berjalan lebih maksimal.</p>
+    </div>
+
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="blog-card-content">
+          <span class="blog-category">TIPS PROJECT</span>
+          <h3>Cara Memilih Talent yang Tepat untuk Project Kreatif</h3>
+          <p>Kenali beberapa hal penting sebelum memilih talent agar kebutuhan project sesuai dengan kemampuan dan portofolionya.</p>
+          <a class="blog-read-more" href="https://journal.unnes.ac.id/nju/jdm/article/view/37878" target="_blank" rel="noopener noreferrer">Baca Jurnal <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-content">
+          <span class="blog-category">PORTOFOLIO</span>
+          <h3>Tips Membangun Portofolio yang Menarik Client</h3>
+          <p>Portofolio yang jelas dan relevan dapat membantu menunjukkan kemampuan serta pengalaman kreatif secara lebih profesional.</p>
+          <a class="blog-read-more" href="https://doi.org/10.1007/s11747-024-01052-7" target="_blank" rel="noopener noreferrer">Baca Jurnal <span>↗</span></a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-content">
+          <span class="blog-category">TREND</span>
+          <h3>Tren Jasa Kreatif yang Banyak Dibutuhkan Bisnis</h3>
+          <p>Simak jenis layanan kreatif yang dapat mendukung kebutuhan branding, pemasaran digital, dan produksi konten bisnis.</p>
+          <a class="blog-read-more" href="https://doi.org/10.59141/jiss.v6i8.1829" target="_blank" rel="noopener noreferrer">Baca Jurnal <span>↗</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
 <section style="background:var(--bg);padding:96px 5%" id="kontak">
   <div class="section-header center reveal">
     <div class="section-eyebrow">
@@ -845,11 +924,11 @@ footer{background:var(--navy);padding:64px 5% 32px;color:rgba(255,255,255,.6)}
     </div>
     <div class="footer-col">
       <h4>Platform</h4>
-      <ul><li><a href="#kategori">Kategori Layanan</a></li><li><a href="#talent">Cari Talent</a></li><li><a href="#cara-kerja">Cara Kerja</a></li><li><a href="#fitur">Fitur</a></li><li><a href="#cta">Daftar Gratis</a></li></ul>
+      <ul><li><a href="#home">Home</a></li><li><a href="#fitur">Fitur</a></li><li><a href="#testimoni">Review</a></li><li><a href="#blog">Blog</a></li><li><a href="#kontak">Kontak</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Perusahaan</h4>
-      <ul><li><a href="#">Tentang Kami</a></li><li><a href="#">Blog</a></li><li><a href="#">Karir</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Partner</a></li></ul>
+      <ul><li><a href="#home">Tentang Kami</a></li><li><a href="#blog">Blog</a></li><li><a href="#kontak">Kontak</a></li><li><a href="#">Karir</a></li><li><a href="#">Partner</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Bantuan</h4>
@@ -881,28 +960,6 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const duration = 1800;
-  const start = performance.now();
-  function tick(now) {
-    const t = Math.min((now - start) / duration, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    el.textContent = Math.floor(ease * target).toLocaleString('id-ID');
-    if (t < 1) requestAnimationFrame(tick);
-    else el.textContent = target.toLocaleString('id-ID');
-  }
-  requestAnimationFrame(tick);
-}
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting && !e.target.dataset.animated) {
-      e.target.dataset.animated = '1';
-      animateCounter(e.target);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 let currentStep = 0;
 function setStep(index, el) {
   document.querySelectorAll('.step-item').forEach(s => s.classList.remove('active'));
@@ -939,5 +996,6 @@ document.querySelectorAll('.mchip').forEach(chip => {
   });
 });
 </script>
+
 </body>
 </html>
