@@ -1,0 +1,101 @@
+/* ProjectKita — tema (palet seperti aplikasi), ikon SVG, dan animasi. Dimuat SETELAH style.css */
+:root{--blue:#0A56D8;--dark:#0843B0;--light:#E3EDFF;--navy:#0B1630;--muted:#5B6B86;--border:#E3EAF5;--bg:#F5F8FC;--r:22px;--d:'Poppins',sans-serif;--b:'Poppins',sans-serif;--grad:linear-gradient(135deg,#0B1B3A 0%,#0A3C9E 55%,#0A56D8 100%)}
+[hidden]{display:none!important}
+h1,h2,h3{letter-spacing:-.3px}
+h1{font-size:clamp(32px,4.6vw,50px);font-weight:800}
+h2{font-weight:700}
+.sub{color:var(--muted)}
+footer{background:#08122B}
+
+/* ===== animasi masuk halaman ===== */
+main{animation:pageIn .6s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rv{opacity:0}
+.rv.in{opacity:1;animation:rise .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--dl,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes drift{50%{transform:translate(40px,30px) scale(1.15)}}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}}
+@keyframes pop{from{transform:scale(0) rotate(-40deg);opacity:0}60%{transform:scale(1.25) rotate(8deg)}}
+
+/* ===== header ===== */
+header{transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(10,86,216,.12)}
+.links a{position:relative;transition:color .2s}
+.links a:after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:var(--blue);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.links a:hover:after,.links a.on:after{transform:scaleX(1)}
+
+/* ===== tombol ===== */
+.btn{position:relative;overflow:hidden;transition:transform .2s,box-shadow .25s,background .2s,color .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(10,86,216,.25)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:linear-gradient(135deg,#2B7BFF,#0A56D8)}
+.btn-p:hover{background:linear-gradient(135deg,#0A56D8,#0843B0)}
+.btn-wa:hover{box-shadow:0 10px 22px rgba(37,211,102,.38)}
+.btn-p:before,.btn-wa:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%)}
+.btn-p:hover:before,.btn-wa:hover:before{transform:translateX(120%);transition:transform .7s}
+.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== hero (gradasi seperti banner aplikasi) ===== */
+.hero{background:var(--grad);background-size:200% 200%;animation:flow 14s ease infinite;color:#fff;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;pointer-events:none}
+.hero:before{width:380px;height:380px;background:#3B8BFF;top:-120px;right:-80px;animation:drift 12s ease-in-out infinite}
+.hero:after{width:300px;height:300px;background:#0A56D8;bottom:-140px;left:-60px;animation:drift 15s ease-in-out infinite reverse}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{color:#fff}.hero h1 em{color:#8DB9FF}.hero p{color:#CBD9F5}
+.hero .btn-p{background:#fff;color:#0B1B3A}.hero .btn-p:hover{background:#E3EDFF}
+.hero .btn-o{border-color:rgba(255,255,255,.55);background:transparent;color:#fff}.hero .btn-o:hover{background:#fff;color:var(--blue)}
+.mock{animation:float 6s ease-in-out infinite;box-shadow:0 30px 70px rgba(0,0,0,.30)}
+.item{transition:transform .25s,border-color .25s,box-shadow .25s}
+.item:hover{transform:translateX(6px);border-color:var(--blue);box-shadow:0 8px 20px rgba(10,86,216,.12)}
+main>section:first-child:not(.hero){background:linear-gradient(180deg,#EAF1FF 0%,#fff 70%)}
+
+/* ===== kartu ===== */
+.card{border-radius:var(--r);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(10,86,216,.14)}
+.card .ic,.ic{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#3B8BFF 0%,#0A56D8 55%,#0843B0 100%);color:#fff;box-shadow:0 10px 22px rgba(10,86,216,.30),inset 0 1px 0 rgba(255,255,255,.35);margin-bottom:16px;font-size:0;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ic{transform:translateY(-3px) rotate(-6deg) scale(1.08)}
+.ic svg,.item i svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.item i{background:linear-gradient(135deg,#3B8BFF,#0A56D8);color:#fff;box-shadow:0 6px 14px rgba(10,86,216,.28)}
+.item i svg{width:22px;height:22px}
+.card h3{transition:color .2s}.card:hover h3{color:var(--blue)}
+
+/* ===== langkah, FAQ, tabel, CTA, dark ===== */
+.steps li{transition:transform .3s,box-shadow .3s,border-color .3s}
+.steps li:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(10,86,216,.14);border-color:var(--blue)}
+.steps li:before{background:linear-gradient(135deg,#3B8BFF,#0843B0);box-shadow:0 8px 18px rgba(10,86,216,.3);transition:transform .3s}
+.steps li:hover:before{transform:scale(1.12) rotate(-6deg)}
+.dark{background:var(--grad)}
+.dark .card{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);backdrop-filter:blur(6px)}
+.dark .card:hover{border-color:#8DB9FF}.dark .card:hover h3{color:#fff}
+.cta{background:var(--grad);background-size:170% 170%;animation:flow 12s ease infinite;position:relative;overflow:hidden}
+.cta:after{content:"";position:absolute;width:320px;height:320px;border-radius:50%;right:-90px;top:-130px;background:radial-gradient(circle,rgba(141,185,255,.45),transparent 70%);animation:drift 10s ease-in-out infinite;pointer-events:none}
+.cta>*{position:relative;z-index:1}
+.faq details{transition:border-color .25s,box-shadow .25s}
+.faq details[open]{border-color:var(--blue);box-shadow:0 10px 24px rgba(10,86,216,.10)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-size:24px;line-height:1;color:var(--blue);transition:transform .3s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq details[open] p{animation:fade .35s ease}
+tr{transition:background .2s}tr:hover td{background:#F3F7FF}
+.tag{background:var(--light);color:var(--blue)}
+
+/* ===== bintang, avatar, testimoni ===== */
+.stars{display:flex;gap:3px;margin-bottom:14px}
+.stars svg{width:20px;height:20px;fill:#FBBF24;stroke:#F59E0B;stroke-width:1;stroke-linejoin:round;filter:drop-shadow(0 2px 3px rgba(245,158,11,.35))}
+.in .stars svg{animation:pop .5s backwards}
+.in .stars svg:nth-child(2){animation-delay:.1s}.in .stars svg:nth-child(3){animation-delay:.2s}.in .stars svg:nth-child(4){animation-delay:.3s}.in .stars svg:nth-child(5){animation-delay:.4s}
+.who{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:16px}
+.who h3{margin:0;font-size:16px}.who p{font-size:13px}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(135deg,#3B8BFF,#0843B0);color:#fff;font:700 15px var(--d);box-shadow:0 6px 14px rgba(10,86,216,.28)}
+.quote{color:var(--navy)!important;font-size:15px!important}
+
+/* ===== tombol WhatsApp mengambang ===== */
+.wafloat{display:inline-flex;align-items:center;gap:8px;animation:pulse 2.4s infinite;transition:transform .2s}
+.wafloat:hover{transform:translateY(-3px) scale(1.04)}
+@keyframes pulse{0%{box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 0 0 rgba(37,211,102,0)}}
+
+@media(max-width:860px){.links a:after{display:none}.hero:before{width:240px;height:240px}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1!important}.rv.in,.in .stars svg,main,.hero,.hero:before,.hero:after,.mock,.cta,.cta:after,.wafloat{animation:none!important}}
